@@ -30,6 +30,10 @@ local vagrant_argument_tree = {
 		'commit',
 		'status',
 		'off'
-	}
+	},
+	-- global-status plugin
+	"global-status",
+	-- PuTTY plugin
+	"putty"
 }
 clink.arg.register_tree("vagrant", vagrant_argument_tree)
