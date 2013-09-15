@@ -1,7 +1,36 @@
+local compass_env_argument_tree = {'development', 'production'}
+local compass_output_style_argument_tree = {'nested', 'expanded', 'compact', 'compressed'}
+
 local compass_argument_tree = {
 	'clean',
 	'compile',
-	'create',
+	create = {
+			'--using',
+			'-x', '--syntax',
+			'--prepare',
+			'-r', '--require',
+			'-l', '--load',
+			'-L', '--load-all',
+			'-I',
+			'-q', '--quiet',
+			'--trace',
+			'--force',
+			'--dry-run',
+			'--boring',
+			'-c', '--config',
+			'--app',
+			'--sass-dir',
+			'--css-dir',
+			'--images-dir',
+			'--javascripts-dir',
+			'--fonts-dir',
+			'-e', '--environment',
+			'-s', '--output-style',
+			'--relative-assets',
+			'--no-line-comments',
+			'--bare',
+			'-?', '-h', '--help'
+		},
 	'init',
 	'watch',
 	'config',
