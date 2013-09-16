@@ -8,7 +8,7 @@ local gem_argument_tree = {
 	'environment',
 	'fetch',
 	'generate_index',
-	'help' = {'commands', 'examples', 'platforms'},
+	help = {'commands', 'examples', 'platforms'},
 	'install',
 	'list',
 	'lock',
