@@ -50,4 +50,6 @@ local pear_subcommand_List = {
 
 local pear_argument_tree = pear_subcommand_List
 pear_argument_tree['help'] = pear_subcommand_List
+
 clink.arg.register_tree('pear', pear_argument_tree)
+clink.arg.register_tree('pecl', pear_argument_tree)
