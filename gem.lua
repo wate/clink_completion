@@ -28,4 +28,4 @@ local gem_argument_tree = {
 	'which',
 	'yank'
 }
-clink.arg.register_tree('gem', gem_argument_tree)
+clink.arg.register_parser('gem', gem_argument_tree)

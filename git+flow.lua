@@ -178,7 +178,7 @@ local git_argument_tree = {
 			}
 	}
 }
-clink.arg.register_tree('git', git_argument_tree)
+clink.arg.register_parser('git', git_argument_tree)
 
 
 

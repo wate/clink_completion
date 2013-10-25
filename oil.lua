@@ -81,4 +81,4 @@ local oil_argument_tree = {
 	server = oil_server_argument_tree,
 	s = oil_server_argument_tree
 }
-clink.arg.register_tree('oil', oil_argument_tree)
+clink.arg.register_parser('oil', oil_argument_tree)

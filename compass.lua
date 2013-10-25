@@ -19,4 +19,4 @@ local compass_subcommand_list = {
 }
 local compass_argument_tree = compass_subcommand_list
 compass_argument_tree['help'] = compass_subcommand_list
-clink.arg.register_tree("compass", compass_argument_tree)
+clink.arg.register_parser("compass", compass_argument_tree)

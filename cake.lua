@@ -11,4 +11,4 @@ local cake_argument_tree = {
 		'all'
 	}
 }
-clink.arg.register_tree('cake', cake_argument_tree)
+clink.arg.register_parser('cake', cake_argument_tree)

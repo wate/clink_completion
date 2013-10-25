@@ -38,4 +38,4 @@ local vagrant_argument_tree = {
 	-- PuTTY plugin
 	hosts = {"list", "update", "remove"}
 }
-clink.arg.register_tree("vagrant", vagrant_argument_tree)
+clink.arg.register_parser("vagrant", vagrant_argument_tree)

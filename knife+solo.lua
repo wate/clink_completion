@@ -109,4 +109,4 @@ local knife_argument_tree = {
 	},
 	'xargs'
 }
-clink.arg.register_tree('knife', knife_argument_tree)
+clink.arg.register_parser('knife', knife_argument_tree)
