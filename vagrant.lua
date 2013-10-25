@@ -34,8 +34,6 @@ local vagrant_argument_tree = {
 	-- global-status plugin
 	"global-status",
 	-- PuTTY plugin
-	"putty",
-	-- PuTTY plugin
-	hosts = {"list", "update", "remove"}
+	"putty"
 }
 clink.arg.register_parser("vagrant", vagrant_argument_tree)
