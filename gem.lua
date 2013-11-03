@@ -1,4 +1,3 @@
-local gem_parser = clink.arg.new_parser()
 local gem_parser = {
 	'build',
 	'cert',
