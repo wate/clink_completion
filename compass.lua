@@ -82,7 +82,6 @@ local compass_version_parser = clink.arg.new_parser()
 compass_version_parser:set_flags("-q", "--quiet", "--major", "--minor", "--patch", "--revision", "-?", "-h", "--help")
 
 local compass_parser = clink.arg.new_parser()
-compass_parser:set_flags(compass_min_common_flags)
 compass_parser:set_arguments({
 	"clean" .. compass_common_parser,
 	"compile" .. compass_compile_parser,
