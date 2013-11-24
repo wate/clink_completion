@@ -6,7 +6,7 @@ local gem_parser = {
 	'contents',
 	'dependency',
 	'environment',
-	'fetch'
+	'fetch',
 	'generate_index',
 	help = {'commands', 'examples', 'platforms'},
 	'install',
