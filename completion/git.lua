@@ -1,20 +1,125 @@
-local git_argument_tree = {
+local git_notes_parser = clink.arg.new_parser()
+git_notes_parser:set_arguments({
+	'list',
+	'add',
+	'copy',
+	'append',
+	'edit',
+	'show',
+	'merge',
+	'remove',
+	'prune',
+	'get-ref'
+})
+
+local git_stash_parser = clink.arg.new_parser()
+git_stash_parser:set_arguments({
+	'list',
+	'show',
+	'drop',
+	'pop',
+	'apply',
+	'branch',
+	'save',
+	'clear'
+})
+local git_submodule_parser = clink.arg.new_parser()
+git_submodule_parser:set_arguments({
+	'add',
+	'status',
+	'init',
+	'deinit',
+	'update',
+	'summary',
+	'foreach',
+	'sync',
+})
+local git_remote_parser = clink.arg.new_parser()
+git_remote_parser:set_arguments({
+	'add',
+	'rename',
+	'remove',
+	'set-head',
+	'show',
+	'prune',
+	'update',
+	'set-branches',
+	'set-url'
+})
+
+local git_rerere_parser = clink.arg.new_parser()
+git_rerere_parser:set_arguments({
+	'clear',
+	'forget',
+	'status',
+	'remaining',
+	'diff',
+	'gc'
+})
+local git_svn_parser = clink.arg.new_parser()
+git_svn_parser:set_arguments({
+	'blame',
+	'branch',
+	'clone',
+	'commit-diff',
+	'create-ignore',
+	'dcommit',
+	'fetch',
+	'find-rev',
+	'gc',
+	'info',
+	'init',
+	'log',
+	'migrate',
+	'mkdirs',
+	'propget',
+	'proplist',
+	'rebase',
+	'reset',
+	'set-tree',
+	'show-externals',
+	'show-ignore',
+	'tag'
+})
+
+local git_flow_feature_parser = clink.arg.new_parser()
+git_flow_feature_parser:set_arguments({'list', 'start', 'finish', 'publish', 'track', 'diff', 'rebase', 'checkout', 'pull'})
+local git_flow_release_parser = clink.arg.new_parser()
+git_flow_release_parser:set_arguments({'list', 'start', 'finish', 'publish', 'track'})
+local git_flow_hotfix_parser = clink.arg.new_parser()
+git_flow_hotfix_parser:set_arguments({'list', 'start', 'finish'})
+local git_flow_support_parser = clink.arg.new_parser()
+git_flow_support_parser:set_arguments({'list', 'start'})
+
+local git_flow_parser = clink.arg.new_parser()
+git_flow_parser:set_arguments({
+	"init",
+	"feature"..git_flow_feature_parser,
+	"release"..git_flow_release_parser,
+	"hotfix"..git_flow_hotfix_parser,
+	"support"..git_flow_support_parser,
+})
+local git_bisect_parser = clink.arg.new_parser()
+git_bisect_parser:set_arguments({
+	'help',
+	'start',
+	'bad',
+	'good',
+	'skip',
+	'next',
+	'reset',
+	'visualize',
+	'replay',
+	'log',
+	'run'
+})
+
+local git_parser = clink.arg.new_parser()
+git_parser:set_arguments({
 	'add',
 	'am',
 	'archive',
-	bisect = {
-		'help',
-		'start',
-		'bad',
-		'good',
-		'skip',
-		'next',
-		'reset',
-		'visualize',
-		'replay',
-		'log',
-		'run'
-	},	
+	"bisect"..git_bisect_parser,
 	'branch',
 	'bundle',
 	'checkout',
@@ -34,18 +139,7 @@ local git_argument_tree = {
 	'log',
 	'merge',
 	'mv',
-	notes = {
-		'list',
-		'add',
-		'copy',
-		'append',
-		'edit',
-		'show',
-		'merge',
-		'remove',
-		'prune',
-		'get-ref'
-	},
+	"notes"..git_notes_parser,
 	'pull',
 	'push',
 	'rebase',
@@ -54,27 +148,9 @@ local git_argument_tree = {
 	'rm',
 	'shortlog',
 	'show',
-	stash = {
-		'list',
-		'show',
-		'drop',
-		'pop',
-		'apply',
-		'branch',
-		'save',
-		'clear'
-	},
+	"stash"..git_stash_parser,
 	'status',
-	submodule = {
-		'add',
-		'status',
-		'init',
-		'deinit',
-		'update',
-		'summary',
-		'foreach',
-		'sync',
-	},
+	"submodule"..git_submodule_parser,
 	'tag',
 	'config',
 	'fast-export',
@@ -86,17 +162,7 @@ local git_argument_tree = {
 	'prune',
 	'reflog',
 	'relink',
-	remote = {
-		'add',
-		'rename',
-		'remove',
-		'set-head',
-		'show',
-		'prune',
-		'update',
-		'set-branches',
-		'set-url'
-	},
+	"remote"..git_remote_parser,
 	'repack',
 	'replace',
 	'repo-config',
@@ -110,75 +176,15 @@ local git_argument_tree = {
 	'help',
 	'instaweb',
 	'merge-tree',
-	rerere = {
-		'clear',
-		'forget',
-		'status',
-		'remaining',
-		'diff',
-		'gc'
-	},
+	"rerere"..git_rerere_parser,
 	'rev-parse',
 	'show-branch',
 	'verify-tag',
 	'whatchanged',
-	svn = {
-		'blame',
-		'branch',
-		'clone',
-		'commit-diff',
-		'create-ignore',
-		'dcommit',
-		'fetch',
-		'find-rev',
-		'gc',
-		'info',
-		'init',
-		'log',
-		'migrate',
-		'mkdirs',
-		'propget',
-		'proplist',
-		'rebase',
-		'reset',
-		'set-tree',
-		'show-externals',
-		'show-ignore',
-		'tag'
-	},
-	--add Git Flow
-	flow = {
-		'init',
-		feature = {
-			'list',
-			'start',
-			'finish',
-			'publish',
-			'track',
-			'diff',
-			'rebase',
-			'checkout',
-			'pull',
-			},
-		release = {
-			'list',
-			'start',
-			'finish',
-			'publish',
-			'track',
-			},
-		hotfix = {
-			'list',
-			'start',
-			'finish',
-			},
-		support = {
-			'list',
-			'start',
-			}
-	}
-}
-clink.arg.register_parser('git', git_argument_tree)
+	"svn"..git_svn_parser,
+	"flow"..git_flow_parser
+})
+clink.arg.register_parser('git', git_parser)
 
 
 
