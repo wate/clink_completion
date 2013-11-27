@@ -83,17 +83,43 @@ git_svn_parser:set_arguments({
 })
 
 local git_flow_feature_parser = clink.arg.new_parser()
-git_flow_feature_parser:set_arguments({"list", "start", "finish", "publish", "track", "diff", "rebase", "checkout", "pull"})
+git_flow_feature_parser:set_flags("-v")
+git_flow_feature_parser:set_arguments({
+	"list"..clink.arg.new_parser():set_flags("-v"),
+	"start"..clink.arg.new_parser():set_flags("-F"),
+	"finish"..clink.arg.new_parser():set_flags("-F", "-r", "-k", "-D", "-S"),
+	"publish",
+	"track",
+	"diff",
+	"rebase"..clink.arg.new_parser():set_flags("-i"),
+	"checkout",
+	"pull"
+})
 local git_flow_release_parser = clink.arg.new_parser()
-git_flow_release_parser:set_arguments({"list", "start", "finish", "publish", "track"})
+git_flow_release_parser:set_flags("-v")
+git_flow_release_parser:set_arguments({
+	"list"..clink.arg.new_parser():set_flags("-v"),
+	"start"..clink.arg.new_parser():set_flags("-F"),
+	"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+	"publish",
+	"track"
+})
 local git_flow_hotfix_parser = clink.arg.new_parser()
-git_flow_hotfix_parser:set_arguments({"list", "start", "finish"})
+git_flow_hotfix_parser:set_flags("-v")
+git_flow_hotfix_parser:set_arguments({
+	"list"..clink.arg.new_parser():set_flags("-v"),
+	"start"..clink.arg.new_parser():set_flags("-F"),
+	"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n")
+})
 local git_flow_support_parser = clink.arg.new_parser()
-git_flow_support_parser:set_arguments({"list", "start"})
-
+git_flow_support_parser:set_flags("-v")
+git_flow_support_parser:set_arguments({
+	"list"..clink.arg.new_parser():set_flags("-v"),
+	"start"..clink.arg.new_parser():set_flags("-F")
+})
 local git_flow_parser = clink.arg.new_parser()
 git_flow_parser:set_arguments({
-	"init",
+	"init"..clink.arg.new_parser():set_flags("-d", "-f"),
 	"feature"..git_flow_feature_parser,
 	"release"..git_flow_release_parser,
 	"hotfix"..git_flow_hotfix_parser,
@@ -113,6 +139,84 @@ git_bisect_parser:set_arguments({
 	"log",
 	"run"
 })
+local git_commit_parser = clink.arg.new_parser()
+git_commit_parser:set_flags(
+	"--all", "-a",
+	"--patch", "-p",
+	"--reuse-message", "-C",
+	"--reedit-message", "-c",
+	"--fixup",
+	"--squash",
+	"--reset-author",
+	"--squash",
+	"--short",
+	"--branch",
+	"--porcelain",
+	"--long",
+	"--null", "-z",
+	"--file", "-F",
+	"--author",
+	"--date",
+	"--message", "-m",
+	"--signoff", "-s",
+	"--no-verify", "-n",
+	"--allow-empty",
+	"--allow-empty-message",
+	"--cleanup"..clink.arg.new_parser():set_arguments({"strip", "whitespace", "verbatim", "default"}),
+	"--edit", "-e", "no-edit",
+	"--amend",
+	"--no-post-rewrite",
+	"--include", "-i",
+	"--only", "-o",
+	"--untracked-files"..clink.arg.new_parser():set_arguments({"no", "normal ", "all"}), "-u"..clink.arg.new_parser():set_arguments({"no", "normal ", "all"}),
+	"--verbose", "-v",
+	"--quiet", "-q",
+	"--dry-run",
+	"--no-status",
+	"--gpg-sign", "-S"
+)
+local git_branch_parser = clink.arg.new_parser()
+git_branch_parser:set_flags(
+	"--delete", "-d",
+	"-D",
+	"--create-reflog", "-l",
+	"--force", "-f",
+	"--move", "-m",
+	"-M",
+	"--color", "--no-color",
+	"--column", "--no-column",
+	"--remotes", "-r",
+	"--all", "-a",
+	"--list",
+	"--verbose", "-v", "-vv",
+	"--quiet", "-q",
+	"--abbrev", "--no-abbrev",
+	"--track", "-t", "--no-track",
+	"--set-upstream",
+	"--set-upstream-to", "-u", "--unset-upstream",
+	"--edit-description",
+	"--contains",
+	"--merged", "--no-merged"
+)
+
+local git_merge_parser = clink.arg.new_parser()
+git_merge_parser:set_flags(
+	"--commit", "--no-commit",
+	"--edit", "-e", "-no-edit",
+	"--ff", "--no-ff", "-ff-only",
+	"--log", "--no-log",
+	"--stat", "-n", "-no-stat",
+	"--squash", "--no-squash",
+	"--strategy", "-s",
+	"--strategy-option", "-X",
+	"--verify-signatures", "--no-verify-signatures",
+	"--summary", "--no-summary",
+	"--quiet", "-q",
+	"--verbose", "-v",
+	"--progress", "--no-progress",
+	"--rerere-autoupdate", "--no-rerere-autoupdate",
+	"-m", "--abort"
+)
 
 local git_parser = clink.arg.new_parser()
 git_parser:set_arguments({
@@ -120,14 +224,14 @@ git_parser:set_arguments({
 	"am",
 	"archive",
 	"bisect"..git_bisect_parser,
-	"branch",
+	"branch"..git_branch_parser,
 	"bundle",
 	"checkout",
 	"cherry-pick",
 	"citool",
 	"clean",
 	"clone",
-	"commit",
+	"commit"..git_commit_parser,
 	"describe",
 	"diff",
 	"fetch",
@@ -137,7 +241,7 @@ git_parser:set_arguments({
 	"gui",
 	"init",
 	"log",
-	"merge",
+	"merge"..git_merge_parser,
 	"mv",
 	"notes"..git_notes_parser,
 	"pull",
@@ -173,7 +277,6 @@ git_parser:set_arguments({
 	"difftool",
 	"fsck",
 	"get-tar-commit-id",
-	"help",
 	"instaweb",
 	"merge-tree",
 	"rerere"..git_rerere_parser,
@@ -182,9 +285,7 @@ git_parser:set_arguments({
 	"verify-tag",
 	"whatchanged",
 	"svn"..git_svn_parser,
-	"flow"..git_flow_parser
+	"flow"..git_flow_parser,
+	"help"
 })
 clink.arg.register_parser("git", git_parser)
-
-
-
