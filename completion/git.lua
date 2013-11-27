@@ -163,7 +163,7 @@ git_commit_parser:set_flags(
 	"--allow-empty",
 	"--allow-empty-message",
 	"--cleanup"..clink.arg.new_parser():set_arguments({"strip", "whitespace", "verbatim", "default"}),
-	"--edit", "-e", "no-edit",
+	"--edit", "-e", "--no-edit",
 	"--amend",
 	"--no-post-rewrite",
 	"--include", "-i",
