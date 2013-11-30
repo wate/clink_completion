@@ -219,8 +219,7 @@ git_stash_parser:set_arguments({
 --------------------------------------------------------
 -- Git diff
 --------------------------------------------------------
-local git_diff_parser = clink.arg.new_parser()
-git_diff_parser:set_flags(
+local git_diff_flags = {
 	"--patch", "-p", "-u",
 	"--no-patch", "-s",
 	"--unified", "-U",
@@ -278,12 +277,13 @@ git_diff_parser:set_flags(
 	"--src-prefix",
 	"--dst-prefix",
 	"--no-prefix"
-)
+}
+local git_diff_parser = clink.arg.new_parser()
+git_diff_parser:set_flags(git_diff_flags)
 --------------------------------------------------------
 -- Git log
 --------------------------------------------------------
-local git_log_parser = clink.arg.new_parser()
-git_log_parser:set_flags(
+local git_log_flags = {
 	"--follow",
 	"--no-decorate", "--decorate",
 	"--source",
@@ -291,6 +291,7 @@ git_log_parser:set_flags(
 	"--full-diff",
 	"--log-size",
 	"-L",
+	-- Commit Limiting
 	"-n",
 	"--max-count",
 	"--skip",
@@ -330,8 +331,50 @@ git_log_parser:set_flags(
 	"--cherry",
 	"--walk-reflogs", "-g",
 	"--merge",
-	"--boundary"
-)
+	"--boundary",
+	-- History Simplification
+	"--simplify-by-decoration",
+	"--full-history",
+	"--dense",
+	"--sparse",
+	"--simplify-merges",
+	"--ancestry-path",
+	"--date-order",
+	"--author-date-order",
+	"--topo-order",
+	"--reverse",
+	-- Object Traversal
+	"--objects",
+	"--objects-edge",
+	"--unpacked",
+	"--no-walk",
+	"--do-walk",
+	-- Commit Formatting
+	"--pretty",
+	"--format",
+	"--abbrev-commit",
+	"--no-abbrev-commit",
+	"--oneline",
+	"--encoding",
+	"--notes", "--no-notes",
+	"--show-notes",
+	"--standard-notes", "--no-standard-notes",
+	"--show-signature",
+	"--relative-date",
+	"--date",
+	"--parents",
+	"--children",
+	"--left-right",
+	"--graph",
+	-- Diff Formatting
+	"-c",
+	"--cc",
+	"-m",
+	"-r",
+	"-t"
+}
+local git_log_parser = clink.arg.new_parser()
+git_log_parser:set_flags(git_log_flags, git_diff_flags)
 --------------------------------------------------------
 -- Git rebase
 --------------------------------------------------------
@@ -396,7 +439,40 @@ git_revert_parser:set_flags(
 -- Git status
 --------------------------------------------------------
 local git_status_parser = clink.arg.new_parser()
-git_status_parser:set_flags()
+git_status_parser:set_flags(
+	"--short", "-s",
+	"--branch", "-b",
+	"--porcelain",
+	"--long",
+	"--untracked-files", "-u",
+	"--ignore-submodules",
+	"--ignored",
+	"-z",
+	"--column", "--no-column"
+)
+--------------------------------------------------------
+-- Git checkout
+--------------------------------------------------------
+local git_checkout_parser = clink.arg.new_parser()
+git_checkout_parser:set_flags(
+	"--quiet", "-q",
+	"--force", "-f",
+	"--ours",
+	"--theirs",
+	"-b",
+	"-B",
+	"--track", "-t", "--no-track",
+	"-l",
+	"--detach",
+	"--orphan",
+	"--ignore-skip-worktree-bits",
+	"--merge", "-m",
+	"--conflict",
+	"--patch", "-p"
+)
+
+
+
 --------------------------------------------------------
 -- Git remote
 --------------------------------------------------------
@@ -454,24 +530,181 @@ git_svn_parser:set_arguments({
 	"show-ignore",
 	"tag"
 })
--- local git_am_parser = clink.arg.new_parser()
--- local git_archive_parser = clink.arg.new_parser()
--- local git_bundle_parser = clink.arg.new_parser()
--- local git_checkout_parser = clink.arg.new_parser()
--- local git_cherry_pick_parser = clink.arg.new_parser()
+--------------------------------------------------------
+-- Git mv
+--------------------------------------------------------
+local git_mv_parser = clink.arg.new_parser()
+git_mv_parser:set_flags(
+	"--force", "-f",
+	"-k",
+	"--dry-run", "-n",
+	"--verbose", "-v"
+)
+--------------------------------------------------------
+-- Git rm
+--------------------------------------------------------
+local git_rm_parser = clink.arg.new_parser()
+git_rm_parser:set_flags(
+	"--force", "-f",
+	"--dry-run", "-n",
+	"-r",
+	"--cached",
+	"--ignore-unmatch",
+	"--quiet", "-q"
+)
+--------------------------------------------------------
+-- Git gc
+--------------------------------------------------------
+local git_gc_parser = clink.arg.new_parser()
+git_gc_parser:set_flags(
+	"--aggressive",
+	"--auto",
+	"--prune", "--no-prune",
+	"--quiet"
+)
+--------------------------------------------------------
+-- Git am
+--------------------------------------------------------
+local git_am_parser = clink.arg.new_parser()
+git_am_parser:set_flags(
+	"--signoff", "-s",
+	"--keep", "-k",
+	"--keep-non-patch",
+	"--keep-cr", "--no-keep-cr",
+	"--scissors", "-c", "--no-scissors",
+	"--quiet", "-q",
+	"--utf8", "-u", "--no-utf8",
+	"--3way", "-3",
+	"--ignore-date",
+	"--ignore-space-change",
+	"--ignore-whitespace",
+	"--whitespace",
+	"-C",
+	"-p",
+	"--directory",
+	"--exclude",
+	"--include",
+	"--reject",
+	"--interactive", "-i",
+	"--committer-date-is-author-date",
+	"--ignore-date",
+	"--skip",
+	"--continue",
+	"--resolved", "-r",
+	"--resolvemsg",
+	"--abort"
+)
+--------------------------------------------------------
+-- Git tag
+--------------------------------------------------------
+local git_tag_parser = clink.arg.new_parser()
+git_tag_parser:set_flags(
+	"--annotate", "-a",
+	"--sign", "-s",
+	"--local-user", "-u",
+	"--force", "-f",
+	"--delete", "-d",
+	"--verify", "-v",
+	"-n",
+	"--list", "-l",
+	"--column", "--no-column",
+	"--contains",
+	"--points-at",
+	"--message", "-m",
+	"--file", "-F",
+	"--cleanup"
+)
+--------------------------------------------------------
+-- Git config
+--------------------------------------------------------
+local git_config_parser = clink.arg.new_parser()
+git_config_parser:set_flags(
+	"--replace-all",
+	"--add",
+	"--get",
+	"--get-all",
+	"--get-regexp",
+	"--global",
+	"--system",
+	"--local",
+	"--file", "-f",
+	"--blob",
+	"--remove-section",
+	"--rename-section",
+	"--unset",
+	"--unset-all",
+	"--list", "-l",
+	"--bool",
+	"--int",
+	"--bool-or-int",
+	"--path",
+	"--null", "-z",
+	"--get-colorbool",
+	"--get-color",
+	"--edit", "-e",
+	"--includes", "--no-includes"
+)
+--------------------------------------------------------
+-- Git cherry-pick
+--------------------------------------------------------
+local git_cherry_pick_parser = clink.arg.new_parser()
+git_cherry_pick_parser:set_flags(
+	"--edit", "-e",
+	"-x",
+	"-r",
+	"--mainline", "-m",
+	"--no-commit", "-n",
+	"--signoff", "-s",
+	"--ff",
+	"--allow-empty",
+	"--allow-empty-message",
+	"--keep-redundant-commits",
+	"--strategy",
+	"--strategy-option", "-X",
+	"--continue",
+	"--quit",
+	"--abort"
+)
+--------------------------------------------------------
+-- Git archive
+--------------------------------------------------------
+local git_archive_parser = clink.arg.new_parser()
+git_archive_parser:set_flags(
+	"--format",
+	"--list", "-l",
+	"--verbose", "-v",
+	"--prefix",
+	"--output", "-o",
+	"--worktree-attributes",
+	"--remote",
+	"--exec"
+)
+--------------------------------------------------------
+-- Git clean
+--------------------------------------------------------
+local git_clean_parser = clink.arg.new_parser()
+git_clean_parser:set_flags(
+	"-d",
+	"--force", "-f",
+	"--interactive", "-i",
+	"--dry-run", "-n",
+	"--quiet", "-q",
+	"--exclude", "-e",
+	"-x",
+	"-X"
+)
+--------------------------------------------------------
+-- Git bundle
+--------------------------------------------------------
+local git_bundle_parser = clink.arg.new_parser()
+
 -- local git_citool_parser = clink.arg.new_parser()
--- local git_clean_parser = clink.arg.new_parser()
 -- local git_describe_parser = clink.arg.new_parser()
 -- local git_format_patch_parser = clink.arg.new_parser()
--- local git_gc_parser = clink.arg.new_parser()
 -- local git_grep_parser = clink.arg.new_parser()
 -- local git_gui_parser = clink.arg.new_parser()
--- local git_mv_parser = clink.arg.new_parser()
--- local git_rm_parser = clink.arg.new_parser()
 -- local git_shortlog_parser = clink.arg.new_parser()
 -- local git_show_parser = clink.arg.new_parser()
--- local git_tag_parser = clink.arg.new_parser()
--- local git_config_parser = clink.arg.new_parser()
 -- local git_fast_export_parser = clink.arg.new_parser()
 -- local git_fast_import_parser = clink.arg.new_parser()
 -- local git_filter_branch_parser = clink.arg.new_parser()
@@ -678,42 +911,42 @@ git_flow_parser:set_arguments({
 local git_parser = clink.arg.new_parser()
 git_parser:set_arguments({
 	"add"..git_add_parser,
-	"am",
-	"archive",
+	"am"..git_am_parser,
+	"archive"..git_archive_parser,
 	"bisect"..git_bisect_parser,
 	"branch"..git_branch_parser,
 	"bundle",
-	"checkout",
-	"cherry-pick",
+	"checkout"..git_checkout_parser,
+	"cherry-pick"..git_cherry_pick_parser,
 	"citool",
-	"clean",
+	"clean"..git_clean_parser,
 	"clone"..git_clone_parser,
 	"commit"..git_commit_parser,
 	"describe",
 	"diff"..git_diff_parser,
 	"fetch"..git_fetch_parser,
 	"format-patch",
-	"gc",
+	"gc"..git_gc_parser,
 	"grep",
 	"gui",
 	"init"..git_init_parser,
 	"log"..git_log_parser,
 	"merge"..git_merge_parser,
-	"mv",
+	"mv"..git_mv_parser,
 	"notes"..git_notes_parser,
 	"pull"..git_pull_parser,
 	"push"..git_push_parser,
 	"rebase"..git_rebase_parser,
 	"reset"..git_reset_parser,
 	"revert"..git_revert_parser,
-	"rm",
+	"rm"..git_rm_parser,
 	"shortlog",
 	"show",
 	"stash"..git_stash_parser,
 	"status"..git_status_parser,
 	"submodule"..git_submodule_parser,
-	"tag",
-	"config",
+	"tag"..git_tag_parser,
+	"config"..git_config_parser,
 	"fast-export",
 	"fast-import",
 	"filter-branch",
