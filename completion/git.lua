@@ -218,26 +218,90 @@ git_stash_parser:set_arguments({
 -- Git diff
 --------------------------------------------------------
 local git_diff_parser = clink.arg.new_parser()
+git_diff_parser:set_flags(
+	"--patch", "-p", "-u",
+	"--no-patch", "-s",
+	"--unified", "-U",
+	"--raw",
+	"--patch-with-raw",
+	"--minimal",
+	"--patience",
+	"--histogram",
+	"--diff-algorithm",
+	"--stat",
+	"--numstat",
+	"--shortstat",
+	"--dirstat",
+	"--summary",
+	"--patch-with-stat",
+	"-z",
+	"--name-only",
+	"--name-status",
+	"--submodule",
+	"--color", "--no-color",
+	"--word-diff",
+	"--word-diff-regex",
+	"--color-words",
+	"--no-renames",
+	"--check",
+	"--full-index",
+	"--binary",
+	"--abbrev",
+	"--break-rewrites", "-B",
+	"--find-renames", "-M",
+	"--find-copies", "-C",
+	"--find-copies-harder",
+	"--irreversible-delete", "-D",
+	"-l",
+	"--diff-filter",
+	"-S",
+	"-G",
+	"--pickaxe-all",
+	"--pickaxe-regex",
+	"-O",
+	"-R",
+	"--relative",
+	"--text", "-a",
+	"--ignore-space-at-eol",
+	"--ignore-space-change", "-b",
+	"--ignore-all-space", "-w",
+	"--ignore-blank-lines",
+	"--inter-hunk-context",
+	"--function-context", "-W",
+	"--exit-code",
+	"--quiet",
+	"--ext-diff", "--no-ext-diff",
+	"--textconv", "--no-textconv",
+	"--ignore-submodules",
+	"--src-prefix",
+	"--dst-prefix",
+	"--no-prefix"
+)
 --------------------------------------------------------
 -- Git log
 --------------------------------------------------------
 local git_log_parser = clink.arg.new_parser()
+git_log_parser:set_flags()
 --------------------------------------------------------
 -- Git rebase
 --------------------------------------------------------
 local git_rebase_parser = clink.arg.new_parser()
+git_rebase_parser:set_flags()
 --------------------------------------------------------
 -- Git reset
 --------------------------------------------------------
 local git_reset_parser = clink.arg.new_parser()
+git_reset_parser:set_flags()
 --------------------------------------------------------
 -- Git revert
 --------------------------------------------------------
 local git_revert_parser = clink.arg.new_parser()
+git_revert_parser:set_flags()
 --------------------------------------------------------
 -- Git status
 --------------------------------------------------------
 local git_status_parser = clink.arg.new_parser()
+git_status_parser:set_flags()
 --------------------------------------------------------
 -- Git remote
 --------------------------------------------------------
