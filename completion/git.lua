@@ -98,14 +98,82 @@ git_commit_parser:set_flags(
 -- Git push
 --------------------------------------------------------
 local git_push_parser = clink.arg.new_parser()
+git_push_parser:set_flags(
+	"--all",
+	"--prune",
+	"--mirror",
+	"--dry-run", "-n",
+	"--porcelain",
+	"--delete",
+	"--tags",
+	"--follow-tags",
+	"--receive-pack",
+	"--exec",
+	"--force", "-f",
+	"--repo",
+	"--set-upstream", "-u",
+	"--thin", "--no-thin",
+	"--quiet", "-q",
+	"--verbose", "-v",
+	"--progress",
+	"--recurse-submodules",
+	"--verify", "--no-verify"
+)
 --------------------------------------------------------
 -- Git fetch
 --------------------------------------------------------
+local git_fetch_flags = {
+	"--all",
+	"--append", "-a",
+	"--depth",
+	"--unshallow",
+	"--dry-run",
+	"--force", "-f",
+	"--keep", "-k",
+	"--multiple",
+	"--prune", "-p",
+	"--no-tags", "-n",
+	"--tags", "-t",
+	"--recurse-submodules",
+	"--no-recurse-submodules",
+	"--submodule-prefix",
+	"--recurse-submodules-default",
+	"--update-head-ok", "-u",
+	"--upload-pack",
+	"--quiet", "-q",
+	"--verbose", "-v",
+	"--progress"
+}
 local git_fetch_parser = clink.arg.new_parser()
+git_fetch_parser:set_flags(git_fetch_flags)
+--------------------------------------------------------
+-- Git merge
+--------------------------------------------------------
+local git_merge_flags = {
+	"--commit", "--no-commit",
+	"--edit", "-e", "-no-edit",
+	"--ff", "--no-ff", "-ff-only",
+	"--log", "--no-log",
+	"--stat", "-n", "-no-stat",
+	"--squash", "--no-squash",
+	"--strategy", "-s",
+	"--strategy-option", "-X",
+	"--verify-signatures", "--no-verify-signatures",
+	"--summary", "--no-summary",
+	"--quiet", "-q",
+	"--verbose", "-v",
+	"--progress", "--no-progress",
+	"--rerere-autoupdate", "--no-rerere-autoupdate",
+	"-m", "--abort"
+}
+local git_merge_parser = clink.arg.new_parser()
+git_merge_parser:set_flags(git_merge_flags)
+
 --------------------------------------------------------
 -- Git pull
 --------------------------------------------------------
 local git_pull_parser = clink.arg.new_parser()
+git_pull_parser:set_flags(git_fetch_flags, git_merge_flags)
 --------------------------------------------------------
 -- Git branch
 --------------------------------------------------------
@@ -131,27 +199,6 @@ git_branch_parser:set_flags(
 	"--edit-description",
 	"--contains",
 	"--merged", "--no-merged"
-)
---------------------------------------------------------
--- Git merge
---------------------------------------------------------
-local git_merge_parser = clink.arg.new_parser()
-git_merge_parser:set_flags(
-	"--commit", "--no-commit",
-	"--edit", "-e", "-no-edit",
-	"--ff", "--no-ff", "-ff-only",
-	"--log", "--no-log",
-	"--stat", "-n", "-no-stat",
-	"--squash", "--no-squash",
-	"--strategy", "-s",
-	"--strategy-option", "-X",
-	"--verify-signatures", "--no-verify-signatures",
-	"--summary", "--no-summary",
-	"--quiet", "-q",
-	"--verbose", "-v",
-	"--progress", "--no-progress",
-	"--rerere-autoupdate", "--no-rerere-autoupdate",
-	"-m", "--abort"
 )
 --------------------------------------------------------
 -- Git stash
@@ -485,7 +532,7 @@ git_parser:set_arguments({
 	"commit"..git_commit_parser,
 	"describe",
 	"diff",
-	"fetch",
+	"fetch"..git_fetch_parser,
 	"format-patch",
 	"gc",
 	"grep",
@@ -495,8 +542,8 @@ git_parser:set_arguments({
 	"merge"..git_merge_parser,
 	"mv",
 	"notes"..git_notes_parser,
-	"pull",
-	"push",
+	"pull"..git_pull_parser,
+	"push"..git_push_parser,
 	"rebase",
 	"reset",
 	"revert",
