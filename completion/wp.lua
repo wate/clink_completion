@@ -8,36 +8,155 @@ local wp_global_flags = {
 	"--no-color",
 	"--debug",
 	"--prompt",
-	"--quiet"
+	"--quiet",
+	"--help"
 }
-
+--------------------------------------------------------
+-- wp cache
+--------------------------------------------------------
 local wp_cache_parser = clink.arg.new_parser()
+wp_cache_parser:set_flags("--help")
+wp_cache_parser:set_arguments({
+	"add"..clink.arg.new_parser():set_flags("--help"),		-- Add a value to the object cache.
+	"decr"..clink.arg.new_parser():set_flags("--help"),		-- Decrement a value in the object cache.
+	"delete"..clink.arg.new_parser():set_flags("--help"),	-- Remove a value from the object cache.
+	"flush"..clink.arg.new_parser():set_flags("--help"),	-- Flush the object cache.
+	"get"..clink.arg.new_parser():set_flags("--help"),		-- Get a value from the object cache.
+	"incr"..clink.arg.new_parser():set_flags("--help"),		-- Increment a value in the object cache.
+	"replace"..clink.arg.new_parser():set_flags("--help"),	-- Replace an existing value in the object cache.
+	"set"..clink.arg.new_parser():set_flags("--help"),		-- Set a value to the object cache.
+	"type"..clink.arg.new_parser():set_flags("--help")		-- Attempts to determine which object cache is being used.
+})
+--------------------------------------------------------
+-- wp cap
+--------------------------------------------------------
 local wp_cap_parser = clink.arg.new_parser()
+wp_cap_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp cli
+--------------------------------------------------------
 local wp_cli_parser = clink.arg.new_parser()
+wp_cli_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp comment
+--------------------------------------------------------
 local wp_comment_parser = clink.arg.new_parser()
+wp_comment_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp core
+--------------------------------------------------------
 local wp_core_parser = clink.arg.new_parser()
+wp_core_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp db
+--------------------------------------------------------
 local wp_db_parser = clink.arg.new_parser()
+wp_db_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp eval
+--------------------------------------------------------
 local wp_eval_parser = clink.arg.new_parser()
+wp_eval_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp eval-file
+--------------------------------------------------------
 local wp_eval_file_parser = clink.arg.new_parser()
+wp_eval_file_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp export
+--------------------------------------------------------
 local wp_export_parser = clink.arg.new_parser()
+wp_export_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp import
+--------------------------------------------------------
 local wp_import_parser = clink.arg.new_parser()
+wp_import_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp media
+--------------------------------------------------------
 local wp_media_parser = clink.arg.new_parser()
+wp_media_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp network-meta
+--------------------------------------------------------
 local wp_network_meta_parser = clink.arg.new_parser()
+wp_network_meta_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp option
+--------------------------------------------------------
 local wp_option_parser = clink.arg.new_parser()
+wp_option_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp plugin
+--------------------------------------------------------
 local wp_plugin_parser = clink.arg.new_parser()
+wp_plugin_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp post
+--------------------------------------------------------
 local wp_post_parser = clink.arg.new_parser()
+wp_post_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp post-meta
+--------------------------------------------------------
 local wp_post_meta_parser = clink.arg.new_parser()
+wp_post_meta_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp rewrite
+--------------------------------------------------------
 local wp_rewrite_parser = clink.arg.new_parser()
+wp_rewrite_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp role
+--------------------------------------------------------
 local wp_role_parser = clink.arg.new_parser()
+wp_role_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp scaffold
+--------------------------------------------------------
 local wp_scaffold_parser = clink.arg.new_parser()
+wp_scaffold_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp search-replace
+--------------------------------------------------------
 local wp_search_replace_parser = clink.arg.new_parser()
+wp_search_replace_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp shell
+--------------------------------------------------------
 local wp_shell_parser = clink.arg.new_parser()
+wp_shell_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp site
+--------------------------------------------------------
 local wp_site_parser = clink.arg.new_parser()
+wp_site_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp term
+--------------------------------------------------------
 local wp_term_parser = clink.arg.new_parser()
+wp_term_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp theme
+--------------------------------------------------------
 local wp_theme_parser = clink.arg.new_parser()
+wp_theme_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp transient
+--------------------------------------------------------
 local wp_transient_parser = clink.arg.new_parser()
+wp_transient_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp user
+--------------------------------------------------------
 local wp_user_parser = clink.arg.new_parser()
+wp_user_parser:set_flags("--help")
+--------------------------------------------------------
+-- wp user-meta
+--------------------------------------------------------
 local wp_user_meta_parser = clink.arg.new_parser()
+wp_user_meta_parser:set_flags("--help")
 --------------------------------------------------------
 -- WP CLI
 --------------------------------------------------------
