@@ -336,17 +336,62 @@ git_log_parser:set_flags(
 -- Git rebase
 --------------------------------------------------------
 local git_rebase_parser = clink.arg.new_parser()
-git_rebase_parser:set_flags()
+git_rebase_parser:set_flags(
+	"--onto",
+	"--continue",
+	"--abort",
+	"--keep-empty",
+	"--skip",
+	"--edit-todo",
+	"--merge", "-m",
+	"--strategy", "-s",
+	"--strategy-option", "-X",
+	"--quiet", "-q",
+	"--verbose", "-v",
+	"--stat",
+	"--no-stat", "-n",
+	"--verify", "--no-verify",
+	"-C",
+	"--force-rebase", "-f",
+	"--ignore-whitespace",
+	"--whitespace",
+	"--committer-date-is-author-date",
+	"--ignore-date",
+	"--interactive", "-i",
+	"--preserve-merges", "-p",
+	"--exec", "-x",
+	"--root",
+	"--autosquash", "--no-autosquash",
+	"--autostash", "--no-autostash",
+	"--no-ff"
+)
 --------------------------------------------------------
 -- Git reset
 --------------------------------------------------------
 local git_reset_parser = clink.arg.new_parser()
-git_reset_parser:set_flags()
+git_reset_parser:set_flags(
+	"--soft",
+	"--mixed",
+	"--hard",
+	"--merge",
+	"--keep",
+	"--quiet", "-q"
+)
 --------------------------------------------------------
 -- Git revert
 --------------------------------------------------------
 local git_revert_parser = clink.arg.new_parser()
-git_revert_parser:set_flags()
+git_revert_parser:set_flags(
+	"--edit", "-e", "--no-edit",
+	"--mainline", "-m",
+	"--no-commit", "-n",
+	"--signoff", "-s",
+	"--strategy",
+	"--strategy-option", "-X",
+	"--continue",
+	"--quit",
+	"--abort"
+)
 --------------------------------------------------------
 -- Git status
 --------------------------------------------------------
