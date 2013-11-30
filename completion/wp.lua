@@ -349,6 +349,39 @@ wp_user_meta_parser:set_arguments({
 	"update"
 })
 --------------------------------------------------------
+-- wp help
+--------------------------------------------------------
+local wp_help_parser = clink.arg.new_parser()
+wp_help_parser:set_arguments({
+	"cache"..clink.arg.new_parser():set_arguments({wp_cache_parser:flatten_argument(1)}),
+	"cap"..clink.arg.new_parser():set_arguments({wp_theme_parser:flatten_argument(1)}),
+	"cli"..clink.arg.new_parser():set_arguments({wp_cap_parser:flatten_argument(1)}),
+	"comment"..clink.arg.new_parser():set_arguments({wp_comment_parser:flatten_argument(1)}),
+	"core"..clink.arg.new_parser():set_arguments({wp_core_parser:flatten_argument(1)}),
+	"db"..clink.arg.new_parser():set_arguments({wp_db_parser:flatten_argument(1)}),
+	"eval"..clink.arg.new_parser():set_arguments({wp_eval_parser:flatten_argument(1)}),
+	"eval-file"..clink.arg.new_parser():set_arguments({wp_eval_file_parser:flatten_argument(1)}),
+	"export"..clink.arg.new_parser():set_arguments({wp_export_parser:flatten_argument(1)}),
+	"import"..clink.arg.new_parser():set_arguments({wp_import_parser:flatten_argument(1)}),
+	"media"..clink.arg.new_parser():set_arguments({wp_media_parser:flatten_argument(1)}),
+	"network-meta"..clink.arg.new_parser():set_arguments({wp_network_meta_parser:flatten_argument(1)}),
+	"option"..clink.arg.new_parser():set_arguments({wp_option_parser:flatten_argument(1)}),
+	"plugin"..clink.arg.new_parser():set_arguments({wp_plugin_parser:flatten_argument(1)}),
+	"post"..clink.arg.new_parser():set_arguments({wp_post_parser:flatten_argument(1)}),
+	"post-meta"..clink.arg.new_parser():set_arguments({wp_post_meta_parser:flatten_argument(1)}),
+	"rewrite"..clink.arg.new_parser():set_arguments({wp_rewrite_parser:flatten_argument(1)}),
+	"role"..clink.arg.new_parser():set_arguments({wp_role_parser:flatten_argument(1)}),
+	"scaffold"..clink.arg.new_parser():set_arguments({wp_scaffold_parser:flatten_argument(1)}),
+	"search-replace"..clink.arg.new_parser():set_arguments({wp_search_replace_parser:flatten_argument(1)}),
+	"shell"..clink.arg.new_parser():set_arguments({wp_shell_parser:flatten_argument(1)}),
+	"site"..clink.arg.new_parser():set_arguments({wp_site_parser:flatten_argument(1)}),
+	"term"..clink.arg.new_parser():set_arguments({wp_term_parser:flatten_argument(1)}),
+	"theme"..clink.arg.new_parser():set_arguments({wp_theme_parser:flatten_argument(1)}),
+	"transient"..clink.arg.new_parser():set_arguments({wp_transient_parser:flatten_argument(1)}),
+	"user"..clink.arg.new_parser():set_arguments({wp_user_parser:flatten_argument(1)}),
+	"user-meta"..clink.arg.new_parser():set_arguments({wp_user_meta_parser:flatten_argument(1)})
+})
+--------------------------------------------------------
 -- WP CLI
 --------------------------------------------------------
 local wp_parser = clink.arg.new_parser()
@@ -380,16 +413,7 @@ wp_parser:set_arguments({
 	"theme"..wp_theme_parser,					-- Manage themes.
 	"transient"..wp_transient_parser,			-- Manage transients.
 	"user"..wp_user_parser,						-- Manage users.
-	"user-meta"..wp_user_meta_parser			-- Manage user custom fields.
+	"user-meta"..wp_user_meta_parser,			-- Manage user custom fields.
+	"help"..wp_help_parser,						-- Get help on a certain command.
 })
 clink.arg.register_parser("wp", wp_parser)
-------------------------
--- wp help
-------------------------
-local wp_help_parser = clink.arg.new_parser()
-wp_help_parser:set_arguments({
-    "help" .. clink.arg.new_parser():set_arguments({
-        wp_parser:flatten_argument(1)
-    })
-})
-clink.arg.register_parser("wp", wp_help_parser)
