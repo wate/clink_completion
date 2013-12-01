@@ -1,5 +1,11 @@
 --------------------------------------------------------
--- Git init
+-- Git extensions
+--------------------------------------------------------
+GitFlow = true
+HubFlow = true
+Legit = false
+--------------------------------------------------------
+-- git init
 --------------------------------------------------------
 local git_init_parser = clink.arg.new_parser()
 git_init_parser:set_flags(
@@ -10,7 +16,7 @@ git_init_parser:set_flags(
 	"--shared"
 )
 --------------------------------------------------------
--- Git clone
+-- git clone
 --------------------------------------------------------
 local git_clone_parser = clink.arg.new_parser()
 git_clone_parser:set_flags(
@@ -35,7 +41,7 @@ git_clone_parser:set_flags(
 	"--separate-git-dir"
 )
 --------------------------------------------------------
--- Git add
+-- git add
 --------------------------------------------------------
 local git_add_parser = clink.arg.new_parser()
 git_add_parser:set_flags(
@@ -56,7 +62,7 @@ git_add_parser:set_flags(
 	"--ignore-missing"
 )
 --------------------------------------------------------
--- Git commit
+-- git commit
 --------------------------------------------------------
 local git_commit_parser = clink.arg.new_parser()
 git_commit_parser:set_flags(
@@ -95,7 +101,7 @@ git_commit_parser:set_flags(
 	"--gpg-sign", "-S"
 )
 --------------------------------------------------------
--- Git push
+-- git push
 --------------------------------------------------------
 local git_push_parser = clink.arg.new_parser()
 git_push_parser:set_flags(
@@ -120,7 +126,7 @@ git_push_parser:set_flags(
 	"--verify", "--no-verify"
 )
 --------------------------------------------------------
--- Git fetch
+-- git fetch
 --------------------------------------------------------
 local git_fetch_flags = {
 	"--all",
@@ -147,7 +153,7 @@ local git_fetch_flags = {
 local git_fetch_parser = clink.arg.new_parser()
 git_fetch_parser:set_flags(git_fetch_flags)
 --------------------------------------------------------
--- Git merge
+-- git merge
 --------------------------------------------------------
 local git_merge_flags = {
 	"--commit", "--no-commit",
@@ -168,14 +174,13 @@ local git_merge_flags = {
 }
 local git_merge_parser = clink.arg.new_parser()
 git_merge_parser:set_flags(git_merge_flags)
-
 --------------------------------------------------------
--- Git pull
+-- git pull
 --------------------------------------------------------
 local git_pull_parser = clink.arg.new_parser()
 git_pull_parser:set_flags(git_fetch_flags, git_merge_flags)
 --------------------------------------------------------
--- Git branch
+-- git branch
 --------------------------------------------------------
 local git_branch_parser = clink.arg.new_parser()
 git_branch_parser:set_flags(
@@ -201,7 +206,7 @@ git_branch_parser:set_flags(
 	"--merged", "--no-merged"
 )
 --------------------------------------------------------
--- Git stash
+-- git stash
 --------------------------------------------------------
 local git_stash_parser = clink.arg.new_parser()
 git_stash_parser:set_arguments({
@@ -217,7 +222,7 @@ git_stash_parser:set_arguments({
 	"store"..clink.arg.new_parser():set_flags("--message", "-m", "--quiet", "-q")
 })
 --------------------------------------------------------
--- Git diff
+-- git diff
 --------------------------------------------------------
 local git_diff_flags = {
 	"--patch", "-p", "-u",
@@ -281,7 +286,7 @@ local git_diff_flags = {
 local git_diff_parser = clink.arg.new_parser()
 git_diff_parser:set_flags(git_diff_flags)
 --------------------------------------------------------
--- Git log
+-- git log
 --------------------------------------------------------
 local git_log_flags = {
 	"--follow",
@@ -376,7 +381,7 @@ local git_log_flags = {
 local git_log_parser = clink.arg.new_parser()
 git_log_parser:set_flags(git_log_flags, git_diff_flags)
 --------------------------------------------------------
--- Git rebase
+-- git rebase
 --------------------------------------------------------
 local git_rebase_parser = clink.arg.new_parser()
 git_rebase_parser:set_flags(
@@ -409,7 +414,7 @@ git_rebase_parser:set_flags(
 	"--no-ff"
 )
 --------------------------------------------------------
--- Git reset
+-- git reset
 --------------------------------------------------------
 local git_reset_parser = clink.arg.new_parser()
 git_reset_parser:set_flags(
@@ -421,7 +426,7 @@ git_reset_parser:set_flags(
 	"--quiet", "-q"
 )
 --------------------------------------------------------
--- Git revert
+-- git revert
 --------------------------------------------------------
 local git_revert_parser = clink.arg.new_parser()
 git_revert_parser:set_flags(
@@ -436,7 +441,7 @@ git_revert_parser:set_flags(
 	"--abort"
 )
 --------------------------------------------------------
--- Git status
+-- git status
 --------------------------------------------------------
 local git_status_parser = clink.arg.new_parser()
 git_status_parser:set_flags(
@@ -451,7 +456,7 @@ git_status_parser:set_flags(
 	"--column", "--no-column"
 )
 --------------------------------------------------------
--- Git checkout
+-- git checkout
 --------------------------------------------------------
 local git_checkout_parser = clink.arg.new_parser()
 git_checkout_parser:set_flags(
@@ -474,7 +479,7 @@ git_checkout_parser:set_flags(
 
 
 --------------------------------------------------------
--- Git remote
+-- git remote
 --------------------------------------------------------
 local git_remote_parser = clink.arg.new_parser()
 git_remote_parser:set_arguments({
@@ -489,7 +494,7 @@ git_remote_parser:set_arguments({
 	"set-url"
 })
 --------------------------------------------------------
--- Git submodule
+-- git submodule
 --------------------------------------------------------
 local git_submodule_parser = clink.arg.new_parser()
 git_submodule_parser:set_arguments({
@@ -503,7 +508,7 @@ git_submodule_parser:set_arguments({
 	"sync",
 })
 --------------------------------------------------------
--- Git svn
+-- git svn
 --------------------------------------------------------
 local git_svn_parser = clink.arg.new_parser()
 git_svn_parser:set_arguments({
@@ -531,7 +536,7 @@ git_svn_parser:set_arguments({
 	"tag"
 })
 --------------------------------------------------------
--- Git mv
+-- git mv
 --------------------------------------------------------
 local git_mv_parser = clink.arg.new_parser()
 git_mv_parser:set_flags(
@@ -541,7 +546,7 @@ git_mv_parser:set_flags(
 	"--verbose", "-v"
 )
 --------------------------------------------------------
--- Git rm
+-- git rm
 --------------------------------------------------------
 local git_rm_parser = clink.arg.new_parser()
 git_rm_parser:set_flags(
@@ -553,7 +558,7 @@ git_rm_parser:set_flags(
 	"--quiet", "-q"
 )
 --------------------------------------------------------
--- Git gc
+-- git gc
 --------------------------------------------------------
 local git_gc_parser = clink.arg.new_parser()
 git_gc_parser:set_flags(
@@ -563,7 +568,7 @@ git_gc_parser:set_flags(
 	"--quiet"
 )
 --------------------------------------------------------
--- Git am
+-- git am
 --------------------------------------------------------
 local git_am_parser = clink.arg.new_parser()
 git_am_parser:set_flags(
@@ -595,7 +600,7 @@ git_am_parser:set_flags(
 	"--abort"
 )
 --------------------------------------------------------
--- Git tag
+-- git tag
 --------------------------------------------------------
 local git_tag_parser = clink.arg.new_parser()
 git_tag_parser:set_flags(
@@ -615,7 +620,7 @@ git_tag_parser:set_flags(
 	"--cleanup"
 )
 --------------------------------------------------------
--- Git config
+-- git config
 --------------------------------------------------------
 local git_config_parser = clink.arg.new_parser()
 git_config_parser:set_flags(
@@ -645,7 +650,7 @@ git_config_parser:set_flags(
 	"--includes", "--no-includes"
 )
 --------------------------------------------------------
--- Git cherry-pick
+-- git cherry-pick
 --------------------------------------------------------
 local git_cherry_pick_parser = clink.arg.new_parser()
 git_cherry_pick_parser:set_flags(
@@ -666,7 +671,7 @@ git_cherry_pick_parser:set_flags(
 	"--abort"
 )
 --------------------------------------------------------
--- Git archive
+-- git archive
 --------------------------------------------------------
 local git_archive_parser = clink.arg.new_parser()
 git_archive_parser:set_flags(
@@ -680,7 +685,7 @@ git_archive_parser:set_flags(
 	"--exec"
 )
 --------------------------------------------------------
--- Git clean
+-- git clean
 --------------------------------------------------------
 local git_clean_parser = clink.arg.new_parser()
 git_clean_parser:set_flags(
@@ -694,7 +699,7 @@ git_clean_parser:set_flags(
 	"-X"
 )
 --------------------------------------------------------
--- Git bundle
+-- git bundle
 --------------------------------------------------------
 local git_bundle_parser = clink.arg.new_parser()
 
@@ -731,7 +736,7 @@ local git_bundle_parser = clink.arg.new_parser()
 -- local git_verify_tag_parser = clink.arg.new_parser()
 -- local git_whatchanged_parser = clink.arg.new_parser()
 --------------------------------------------------------
--- Git notes
+-- git notes
 --------------------------------------------------------
 local git_notes_parser = clink.arg.new_parser()
 git_notes_parser:set_arguments({
@@ -747,7 +752,7 @@ git_notes_parser:set_arguments({
 	"get-ref"
 })
 --------------------------------------------------------
--- Git rerere
+-- git rerere
 --------------------------------------------------------
 local git_rerere_parser = clink.arg.new_parser()
 git_rerere_parser:set_arguments({
@@ -759,7 +764,7 @@ git_rerere_parser:set_arguments({
 	"gc"
 })
 --------------------------------------------------------
--- Git bisect
+-- git bisect
 --------------------------------------------------------
 local git_bisect_parser = clink.arg.new_parser()
 git_bisect_parser:set_arguments({
@@ -776,7 +781,7 @@ git_bisect_parser:set_arguments({
 	"run"
 })
 --------------------------------------------------------
--- Git help
+-- git help
 --------------------------------------------------------
 local git_help_parser = clink.arg.new_parser()
 git_help_parser:set_arguments({
@@ -845,65 +850,6 @@ git_help_parser:set_arguments({
 	"verify-tag",
 	"whatchanged",
 	"svn"
-})
---------------------------------------------------------
--- Git Flow
---------------------------------------------------------
----------------------
--- Git flow feature
----------------------
-local git_flow_feature_parser = clink.arg.new_parser()
-git_flow_feature_parser:set_flags("-v")
-git_flow_feature_parser:set_arguments({
-	"list"..clink.arg.new_parser():set_flags("-v"),
-	"start"..clink.arg.new_parser():set_flags("-F"),
-	"finish"..clink.arg.new_parser():set_flags("-F", "-r", "-k", "-D", "-S"),
-	"publish",
-	"track",
-	"diff",
-	"rebase"..clink.arg.new_parser():set_flags("-i"),
-	"checkout",
-	"pull"
-})
----------------------
--- Git flow release
----------------------
-local git_flow_release_parser = clink.arg.new_parser()
-git_flow_release_parser:set_flags("-v")
-git_flow_release_parser:set_arguments({
-	"list"..clink.arg.new_parser():set_flags("-v"),
-	"start"..clink.arg.new_parser():set_flags("-F"),
-	"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
-	"publish",
-	"track"
-})
----------------------
--- Git flow hotfix
----------------------
-local git_flow_hotfix_parser = clink.arg.new_parser()
-git_flow_hotfix_parser:set_flags("-v")
-git_flow_hotfix_parser:set_arguments({
-	"list"..clink.arg.new_parser():set_flags("-v"),
-	"start"..clink.arg.new_parser():set_flags("-F"),
-	"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n")
-})
----------------------
--- Git flow support
----------------------
-local git_flow_support_parser = clink.arg.new_parser()
-git_flow_support_parser:set_flags("-v")
-git_flow_support_parser:set_arguments({
-	"list"..clink.arg.new_parser():set_flags("-v"),
-	"start"..clink.arg.new_parser():set_flags("-F")
-})
----------------------
-local git_flow_parser = clink.arg.new_parser()
-git_flow_parser:set_arguments({
-	"init"..clink.arg.new_parser():set_flags("-d", "-f"),
-	"feature"..git_flow_feature_parser,
-	"release"..git_flow_release_parser,
-	"hotfix"..git_flow_hotfix_parser,
-	"support"..git_flow_support_parser,
 })
 --------------------------------------------------------
 -- Git
@@ -975,7 +921,108 @@ git_parser:set_arguments({
 	"verify-tag",
 	"whatchanged",
 	"svn"..git_svn_parser,
-	"help"..git_help_parser,
-	"flow"..git_flow_parser
+	"help"..git_help_parser
 })
 clink.arg.register_parser("git", git_parser)
+
+--------------------------------------------------------
+-- Git Flow
+--------------------------------------------------------
+if GitFlow then
+	---------------------
+	-- git flow feature
+	---------------------
+	local git_flow_feature_parser = clink.arg.new_parser()
+	git_flow_feature_parser:set_flags("-v")
+	git_flow_feature_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start"..clink.arg.new_parser():set_flags("-F"),
+		"finish"..clink.arg.new_parser():set_flags("-F", "-r", "-k", "-D", "-S"),
+		"publish",
+		"track",
+		"diff",
+		"rebase"..clink.arg.new_parser():set_flags("-i"),
+		"checkout",
+		"pull"
+	})
+	---------------------
+	-- git flow release
+	---------------------
+	local git_flow_release_parser = clink.arg.new_parser()
+	git_flow_release_parser:set_flags("-v")
+	git_flow_release_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start"..clink.arg.new_parser():set_flags("-F"),
+		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"publish",
+		"track"
+	})
+	---------------------
+	-- git flow hotfix
+	---------------------
+	local git_flow_hotfix_parser = clink.arg.new_parser()
+	git_flow_hotfix_parser:set_flags("-v")
+	git_flow_hotfix_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start"..clink.arg.new_parser():set_flags("-F"),
+		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n")
+	})
+	---------------------
+	-- git flow support
+	---------------------
+	local git_flow_support_parser = clink.arg.new_parser()
+	git_flow_support_parser:set_flags("-v")
+	git_flow_support_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start"..clink.arg.new_parser():set_flags("-F")
+	})
+	---------------------
+	local git_flow_parser = clink.arg.new_parser()
+	git_flow_parser:set_arguments({
+		"flow"..clink.arg.new_parser():set_arguments({
+			"init"..clink.arg.new_parser():set_flags("-d", "-f"),
+			"feature"..git_flow_feature_parser,
+			"release"..git_flow_release_parser,
+			"hotfix"..git_flow_hotfix_parser,
+			"support"..git_flow_support_parser,
+		})
+	})
+	clink.arg.register_parser("git", git_flow_parser)
+end
+--------------------------------------------------------
+-- HubFlow
+--------------------------------------------------------
+if HubFlow then
+	local git_hf_parser = clink.arg.new_parser()
+	git_hf_parser:set_arguments({
+		"hf"..clink.arg.new_parser():set_arguments({
+			"init",
+			"feature",
+			"release",
+			"hotfix",
+			"push",
+			"pull",
+			"update",
+			"version",
+			"upgrade"
+		})
+	})
+	clink.arg.register_parser("git", git_hf_parser)
+end
+--------------------------------------------------------
+-- Legit
+--------------------------------------------------------
+if Legit then
+	local legit_parser = clink.arg.new_parser()
+	legit_parser:set_arguments({
+		"branches",		-- Get a nice pretty list of available branches.
+		"sync",			-- Syncronizes the given branch. Defaults to current branch. Stash, Fetch, Auto-Merge/Rebase, Push, and Unstash. You can only sync published branches.
+		"switch",		-- Switches to specified branch. Defaults to current branch. Automatically stashes and unstashes any changes.
+		"sprout",		-- Creates a new branch off of the specified branch. Swiches to it immediately.
+		"harvest",		-- Auto-Merge/Rebase of specified branch changes into the second branch.
+		"graft",		-- Auto-Merge/Rebase of specified branch into the second branch. Immediately removes specified branch. You can only graft unpublished branches.
+		"publish",		-- Publishes specified branch to the remote.
+		"unpublish"		-- Removes specified branch from the remote.
+	})
+	clink.arg.register_parser("git", legit_parser)
+end
