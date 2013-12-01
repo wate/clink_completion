@@ -988,7 +988,7 @@ if GitFlow then
 	---------------------
 	-- git flow version
 	---------------------
-	local git_flow_support_parser = clink.arg.new_parser()
+	local git_flow_version_parser = clink.arg.new_parser()
 	git_flow_version_parser:set_arguments({"help"})
 	---------------------
 	local git_flow_parser = clink.arg.new_parser()
@@ -1103,8 +1103,8 @@ end
 -- Legit
 --------------------------------------------------------
 if Legit then
-	local legit_parser = clink.arg.new_parser()
-	legit_parser:set_arguments({
+	local git_legit_parser = clink.arg.new_parser()
+	git_legit_parser:set_arguments({
 		"branches",		-- Get a nice pretty list of available branches.
 		"sync",			-- Syncronizes the given branch. Defaults to current branch. Stash, Fetch, Auto-Merge/Rebase, Push, and Unstash. You can only sync published branches.
 		"switch",		-- Switches to specified branch. Defaults to current branch. Automatically stashes and unstashes any changes.
@@ -1114,5 +1114,20 @@ if Legit then
 		"publish",		-- Publishes specified branch to the remote.
 		"unpublish"		-- Removes specified branch from the remote.
 	})
-	clink.arg.register_parser("git", legit_parser)
+	clink.arg.register_parser("git", git_legit_parser)
+	local legit_parser = clink.arg.new_parser()
+	legit_parser:set_arguments({
+		"branches",
+		"sync",
+		"switch",
+		"sprout",
+		"harvest",
+		"graft",
+		"publish",
+		"unpublish",
+		"install",
+		"settings",
+		"help"..clink.arg.new_parser():set_arguments({"branches", "sync", "switch", "sprout", "harvest", "graft", "publish", "unpublish"})
+	})
+	clink.arg.register_parser("legit", legit_parser)
 end
