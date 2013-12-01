@@ -930,6 +930,11 @@ clink.arg.register_parser("git", git_parser)
 --------------------------------------------------------
 if GitFlow then
 	---------------------
+	-- git flow init
+	---------------------
+	local git_flow_init_parser = clink.arg.new_parser()
+	git_flow_init_parser:set_flags("-d", "-f")
+	---------------------
 	-- git flow feature
 	---------------------
 	local git_flow_feature_parser = clink.arg.new_parser()
@@ -943,7 +948,8 @@ if GitFlow then
 		"diff",
 		"rebase"..clink.arg.new_parser():set_flags("-i"),
 		"checkout",
-		"pull"
+		"pull",
+		"help"
 	})
 	---------------------
 	-- git flow release
@@ -955,7 +961,8 @@ if GitFlow then
 		"start"..clink.arg.new_parser():set_flags("-F"),
 		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
 		"publish",
-		"track"
+		"track",
+		"help"
 	})
 	---------------------
 	-- git flow hotfix
@@ -965,7 +972,8 @@ if GitFlow then
 	git_flow_hotfix_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n")
+		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"help"
 	})
 	---------------------
 	-- git flow support
@@ -973,18 +981,25 @@ if GitFlow then
 	local git_flow_support_parser = clink.arg.new_parser()
 	git_flow_support_parser:set_flags("-v")
 	git_flow_support_parser:set_arguments({
-		"list"..clink.arg.new_parser():set_flags("-v"),
-		"start"..clink.arg.new_parser():set_flags("-F")
+		"list"..clink.arg.new_parser():set_flags("-v"):set_arguments({"help"}),
+		"start"..clink.arg.new_parser():set_flags("-F"):set_arguments({"help"}),
+		"help"
 	})
+	---------------------
+	-- git flow version
+	---------------------
+	local git_flow_support_parser = clink.arg.new_parser()
+	git_flow_version_parser:set_arguments({"help"})
 	---------------------
 	local git_flow_parser = clink.arg.new_parser()
 	git_flow_parser:set_arguments({
 		"flow"..clink.arg.new_parser():set_arguments({
-			"init"..clink.arg.new_parser():set_flags("-d", "-f"),
-			"feature"..git_flow_feature_parser,
-			"release"..git_flow_release_parser,
-			"hotfix"..git_flow_hotfix_parser,
-			"support"..git_flow_support_parser,
+			"init"..git_flow_init_parser,		-- Initialize a new git repo with support for the branching model.
+			"feature"..git_flow_feature_parser,	-- Manage your feature branches.
+			"release"..git_flow_release_parser,	-- Manage your release branches.
+			"hotfix"..git_flow_hotfix_parser,	-- Manage your hotfix branches.
+			"support"..git_flow_support_parser,	-- Manage your support branches.
+			"version"..git_flow_version_parser	-- Shows version information.
 		})
 	})
 	clink.arg.register_parser("git", git_flow_parser)
@@ -993,18 +1008,93 @@ end
 -- HubFlow
 --------------------------------------------------------
 if HubFlow then
+	---------------------
+	-- git hf init
+	---------------------
+	local git_hf_init_parser = clink.arg.new_parser()
+	git_hf_init_parser:set_flags("-a", "-f")
+	git_hf_init_parser:set_arguments({"help"})
+	---------------------
+	-- git hf feature
+	---------------------
+	local git_hf_feature_parser = clink.arg.new_parser()
+	git_hf_feature_parser:set_flags("-v")
+	git_hf_feature_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start",
+		"submit",
+		"finish"..clink.arg.new_parser():set_flags("-r", "-F", "-k", "-D"),
+		"track",
+		"diff",
+		"rebase"..clink.arg.new_parser():set_flags("-i"),
+		"checkout",
+		"pull"..clink.arg.new_parser():set_flags("-r"),
+		"push",
+		"cancel"..clink.arg.new_parser():set_flags("-f"),
+		"help"
+	})
+	---------------------
+	-- git hf release
+	---------------------
+	local git_hf_release_parser = clink.arg.new_parser()
+	git_hf_release_parser:set_flags("-v")
+	git_hf_release_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start",
+		"finish"..clink.arg.new_parser():set_flags("-s", "-u", "-m", "-p", "-k"),
+		"cancel",
+		"push",
+		"pull",
+		"help"
+	})
+	---------------------
+	-- git hf hotfix
+	---------------------
+	local git_hf_hotfix_parser = clink.arg.new_parser()
+	git_hf_hotfix_parser:set_flags("-v")
+	git_hf_hotfix_parser:set_arguments({
+		"list"..clink.arg.new_parser():set_flags("-v"),
+		"start",
+		"finish"..clink.arg.new_parser():set_flags("-s", "-u", "-m", "-p", "-k"),
+		"track",
+		"pull"..clink.arg.new_parser():set_flags("-r"),
+		"push",
+		"cancel"..clink.arg.new_parser():set_flags("-f"),
+		"help"
+	})
+	---------------------
+	-- git hf push
+	---------------------
+	local git_hf_push_parser = clink.arg.new_parser()
+	git_hf_push_parser:set_arguments({"help"}):set_flags("-f")
+	---------------------
+	-- git hf pull
+	---------------------
+	local git_hf_pull_parser = clink.arg.new_parser()
+	git_hf_pull_parser:set_arguments({"help"}):set_flags("-r")
+	---------------------
+	-- git hf update
+	---------------------
+	local git_hf_update_parser = clink.arg.new_parser()
+	git_hf_update_parser:set_arguments({"help"}):set_flags("-p")
+	---------------------
+	-- git hf version
+	---------------------
+	local git_hf_version_parser = clink.arg.new_parser()
+	git_hf_version_parser:set_arguments({"help"})
 	local git_hf_parser = clink.arg.new_parser()
 	git_hf_parser:set_arguments({
 		"hf"..clink.arg.new_parser():set_arguments({
-			"init",
-			"feature",
-			"release",
-			"hotfix",
-			"push",
-			"pull",
-			"update",
-			"version",
-			"upgrade"
+			"init"..git_hf_init_parser,			-- Initialize a new git repo with support for the branching model.
+			"feature"..git_hf_feature_parser,	-- Manage your feature branches.
+			"release"..git_hf_release_parser,	-- Manage your release branches.
+			"hotfix"..git_hf_hotfix_parser,		-- Manage your hotfix branches.
+			"push"..git_hf_push_parser,			-- Push the changes from your current branch (plus any new tags) back upstream.
+			"pull"..git_hf_pull_parser,			-- Pull upstream changes down into your master, develop, and current branches.
+			"update"..git_hf_update_parser,		-- Pull upstream changes down into your master and develop branches.
+			"version"..git_hf_version_parser,	-- Shows version information.
+			"upgrade"..clink.arg.new_parser():set_arguments({"help"}),
+			"help"
 		})
 	})
 	clink.arg.register_parser("git", git_hf_parser)
