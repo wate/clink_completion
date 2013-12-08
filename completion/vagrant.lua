@@ -1,10 +1,10 @@
 --------------------------------------------------------
 -- Vagrant Plugins
 --------------------------------------------------------
-sahara = true			-- sahara
+sahara = false			-- sahara
 global_status = true	-- global-status
-multi_putty = false		-- vagrant-multi-putty
-vbox_snapshot = false	-- vagrant-vbox-snapshot
+multi_putty = true		-- vagrant-multi-putty
+vbox_snapshot = true	-- vagrant-vbox-snapshot
 
 --------------------------------------------------------
 -- vagrant
