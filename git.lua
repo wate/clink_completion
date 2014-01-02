@@ -1614,3 +1614,20 @@ if Legit then
 	})
 	clink.arg.register_parser("legit", legit_parser)
 end
+
+function git_prompt_filter()
+	local c = tonumber(clink.get_setting_int("prompt_colour"))
+	for line in io.popen("git branch 2>nul"):lines() do
+		local m = line:match("%* (.+)$")
+		if m then
+			if c < 0 then
+				clink.prompt.value = clink.prompt.value.."["..m.."]"
+			else
+				clink.prompt.value = "\x1b[33m".."["..m.."]".."\x1b[34m"..clink.prompt.value
+			end
+			break
+		end
+	end
+	return false
+end
+clink.prompt.register_filter(git_prompt_filter, 50)
