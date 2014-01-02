@@ -45,3 +45,4 @@ chocolatey_parser:set_arguments({
 	"help"
 	})
 clink.arg.register_parser('chocolatey', chocolatey_parser)
+clink.arg.register_parser('choco', chocolatey_parser)
