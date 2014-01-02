@@ -1,8 +1,9 @@
 --------------------------------------------------------
 -- Vagrant Plugins
 --------------------------------------------------------
-sahara = false			-- sahara
+sahara = false          -- sahara
 global_status = true	-- global-status
+vbguest = true          -- vagrant-vbguest
 multi_putty = true		-- vagrant-multi-putty
 vbox_snapshot = true	-- vagrant-vbox-snapshot
 
@@ -74,4 +75,22 @@ if vbox_snapshot then
 		})
 	})
 	clink.arg.register_parser("vagrant", vagrant_vbox_snapshot_parser)
+end
+--------------------------------------------------------
+-- vagrant-vbguest
+--------------------------------------------------------
+if vbguest then
+	local vagrant_vbguest_parser = clink.arg.new_parser()
+	vagrant_vbguest_parser:set_arguments({
+		"vbguest"..clink.arg.new_parser():set_flags(
+			"--do"..clink.arg.new_parser():set_arguments({"start", "rebuild", "install"}),
+			"--status",
+			"--force", "-f",
+			"--auto-reboot", "-b",
+			"--no-remote", "-R",
+			"--iso"
+		)
+	})
+
+	clink.arg.register_parser("vagrant", vagrant_vbguest_parser)
 end
