@@ -4,7 +4,6 @@ awk_parser:set_flags(
 	"-F", "--field-separator",
 	"-v", "--assign",
 	"-m",
-
 	"--compat",
 	"--copyleft",
 	"--copyright",
@@ -44,8 +43,9 @@ awk_parser:set_flags(
 		"use-lc-numeric",
 		"version"
 	})
-);
+)
 clink.arg.register_parser("awk", awk_parser)
+clink.arg.register_parser("gawk", awk_parser)
 
 clink.arg.register_parser("basename", clink.arg.new_parser():set_flags("--help", "--version"))
 
@@ -409,70 +409,381 @@ curl_parser:set_flags(
 clink.arg.register_parser("curl", curl_parser)
 
 local cut_parser = clink.arg.new_parser()
+cut_parser:set_flags(
+	"-b", "--bytes",
+	"-c", "--characters",
+	"-d", "--delimiter",
+	"-f", "--fields",
+	"--complement",
+	"-s", "--only-delimited",
+	"--output-delimiter",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("cut", cut_parser)
 
 local dc_parser = clink.arg.new_parser()
+dc_parser:set_flags(
+	"-e", "--expression",
+	"-f", "--file",
+	"-h", "--help",
+	"-V", "--version"
+)
 clink.arg.register_parser("dc", dc_parser)
 
-local dd_parser = clink.arg.new_parser()
-clink.arg.register_parser("dd", dd_parser)
-
 local df_parser = clink.arg.new_parser()
+df_parser:set_flags(
+	"-a", "--all",
+	"-B", "--block-size",
+	"-h", "--human-readable",
+	"-H", "--si",
+	"-i", "--inodes",
+	"-k",
+	"-l", "--local",
+	"--no-sync",
+	"-P", "--portability",
+	"--sync",
+	"-t", "--type",
+	"-T", "--print-type",
+	"-x", "--exclude-type",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("df", df_parser)
 
 local diff_parser = clink.arg.new_parser()
+diff_parser:set_flags(
+	"-i", "--ignore-case",
+	"--ignore-file-name-case",
+	"--no-ignore-file-name-case",
+	"-E", "--ignore-tab-expansion",
+	"-b", "--ignore-space-change",
+	"-w", "--ignore-all-space",
+	"-B", "--ignore-blank-lines",
+	"-I", "--ignore-matching-lines",
+	"--strip-trailing-cr",
+	"--binary",
+	"-a", "--text",
+	"-c", "-C", "--context",
+	"-u", "-U", "--unified",
+	"--label",
+	"-p", "--show-c-function",
+	"-F", "--show-function-line",
+	"-q", "--brief",
+	"-e", "--ed",
+	"--normal",
+	"-n", "--rcs",
+	"-y", "--side-by-side",
+	"-W", "--width",
+	"--left-column",
+	"--suppress-common-lines",
+	"-D", "--ifdef",
+	"--GTYPE-group-format",
+	"--line-format",
+	"--LTYPE-line-format",
+	"-l", "--paginate",
+	"-t", "--expand-tabs",
+	"-T", "--initial-tab",
+	"--tabsize",
+	"-r", "--recursive",
+	"-N", "--new-file",
+	"--unidirectional-new-file",
+	"-s", "--report-identical-files",
+	"-x", "--exclude",
+	"-X", "--exclude-from",
+	"-S", "--starting-file",
+	"--from-file",
+	"--to-file",
+	"--horizon-lines",
+	"-d", "--minimal",
+	"--speed-large-files",
+	"-v", "--version",
+	"--help"
+)
 clink.arg.register_parser("diff", diff_parser)
 
 local diff3__parser = clink.arg.new_parser()
+diff3__parser:set_flags(
+	"-e", "--ed",
+	"-E", "--show-overlap",
+	"-A", "--show-all",
+	"-x", "--overlap-only",
+	"-X",
+	"-3", "--easy-only",
+	"-m", "--merge",
+	"-L", "--label",
+	"-i",
+	"-a", "--text",
+	"--strip-trailing-cr",
+	"-T", "--initial-tab",
+	"--diff-program",
+	"-v", "--version",
+	"--help"
+)
 clink.arg.register_parser("diff3", diff3_parser)
 
-local dirname_parser = clink.arg.new_parser()
-clink.arg.register_parser("dirname", dirname_parser)
-
-local dos2unix__parser = clink.arg.new_parser()
-clink.arg.register_parser("dos2unix", dos2unix_parser)
+clink.arg.register_parser("dirname", clink.arg.new_parser():set_flags("--help", "--version"))
 
 local du_parser = clink.arg.new_parser()
+du_parser:set_flags(
+	"-a", "--all",
+	"--apparent-size",
+	"-B", "--block-size",
+	"-b", "--bytes",
+	"-c", "--total",
+	"-D", "--dereference-args",
+	"--files0-from",
+	"-H",
+	"-h", "--human-readable",
+	"--si",
+	"-k",
+	"-l", "--count-links",
+	"-L", "--dereference",
+	"-P", "--no-dereference",
+	"-0", "--null",
+	"-S", "--separate-dirs",
+	"-s", "--summarize",
+	"-x", "--one-file-system",
+	"-X", "--exclude-from",
+	"--exclude",
+	"--max-depth",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("du", du_parser)
 
 local egrep_parser = clink.arg.new_parser()
+egrep_parser:set_flags(
+	"-e", "--regexp",
+	"-f", "--file",
+	"-i", "--ignore-case",
+	"-w", "--word-regexp",
+	"-x", "--line-regexp",
+	"-z", "--null-data",
+	"-s", "--no-messages",
+	"-v", "--invert-match",
+	"-V", "--version",
+	"--help",
+	"--mmap",
+	"-m", "--max-count",
+	"-b", "--byte-offset",
+	"-n", "--line-number",
+	"--line-buffered",
+	"-H", "--with-filename",
+	"-h", "--no-filename",
+	"--label",
+	"-o", "--only-matching",
+	"-q", "--quiet", "--silent",
+	"--binary-files",
+	"-a", "--text",
+	"-I",
+	"-d", "--directories",
+	"-D", "--devices",
+	"-R", "-r", "--recursive",
+	"--include",
+	"--exclude",
+	"--exclude-from",
+	"--exclude-dir",
+	"-L", "--files-without-match",
+	"-l", "--files-with-matches",
+	"-c", "--count",
+	"-T", "--initial-tab",
+	"-Z", "--null",
+	"-B", "--before-context",
+	"-A", "--after-context",
+	"-C", "--context",
+	"--color",
+	"--colour",
+	"-U", "--binary",
+	"-u", "--unix-byte-offsets"
+)
 clink.arg.register_parser("egrep", egrep_parser)
 
 local env_parser = clink.arg.new_parser()
+env_parser:set_flags(
+	"-i", "--ignore-environment",
+	"-u", "--unset",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("env", env_parser)
 
-local expand_parser = clink.arg.new_parser()
-clink.arg.register_parser("expand", expand_parser)
-
-local expr_parser = clink.arg.new_parser()
-clink.arg.register_parser("expr", expr_parser)
-
-local factor_parser = clink.arg.new_parser()
-clink.arg.register_parser("factor", factor_parser)
+clink.arg.register_parser("expr", clink.arg.new_parser():set_flags("--help", "--version"))
+clink.arg.register_parser("factor", clink.arg.new_parser():set_flags("--help", "--version"))
 
 local fgrep_parser = clink.arg.new_parser()
+fgrep_parser:set_flags(
+	"-e", "--regexp",
+	"-f", "--file",
+	"-i", "--ignore-case",
+	"-w", "--word-regexp",
+	"-x", "--line-regexp",
+	"-z", "--null-data",
+	"-s", "--no-messages",
+	"-v", "--invert-match",
+	"-V", "--version",
+	"--help",
+	"--mmap",
+	"-m", "--max-count",
+	"-b", "--byte-offset",
+	"-n", "--line-number",
+	"--line-buffered",
+	"-H", "--with-filename",
+	"-h", "--no-filename",
+	"--label",
+	"-o", "--only-matching",
+	"-q", "--quiet", "--silent",
+	"--binary-files",
+	"-a", "--text",
+	"-I",
+	"-d", "--directories",
+	"-D", "--devices",
+	"-R", "-r", "--recursive",
+	"--include",
+	"--exclude",
+	"--exclude-from",
+	"--exclude-dir",
+	"-L", "--files-without-match",
+	"-l", "--files-with-matches",
+	"-c", "--count",
+	"-T", "--initial-tab",
+	"-Z", "--null",
+	"-B", "--before-context",
+	"-A", "--after-context",
+	"-C", "--context",
+	"--color",
+	"--colour",
+	"-U", "--binary",
+	"-u", "--unix-byte-offsets"
+)
 clink.arg.register_parser("fgrep", fgrep_parser)
 
 local flex_parser = clink.arg.new_parser()
+flex_parser:set_flags(
+	"-b",
+	"-c",
+	"-d",
+	"-f",
+	"-h",
+	"-i",
+	"-l",
+	"-n",
+	"-p",
+	"-s",
+	"-t",
+	"-v",
+	"-w",
+	"-B",
+	"-F",
+	"-I",
+	"-L",
+	"-T",
+	"-V",
+	"-7",
+	"-8",
+	"-+",
+	"-?",
+	"-C",
+	"-o",
+	"-P",
+	"-S",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("flex", flex_parser)
 
 local fmt_parser = clink.arg.new_parser()
+fmt_parser:set_flags(
+	"-c", "--crown-margin",
+	"-p", "--prefix",
+	"-s", "--split-only",
+	"-t", "--tagged-paragraph",
+	"-u", "--uniform-spacing",
+	"-w", "--width",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("fmt", fmt_parser)
 
 local fold_parser = clink.arg.new_parser()
+fold_parser:set_flags(
+	"-b", "--bytes",
+	"-s", "--spaces",
+	"-w", "--width",
+	"--help",
+	"--version"
+)
 clink.arg.register_parser("fold", fold_parser)
 
-local gawk_parser = clink.arg.new_parser()
-clink.arg.register_parser("gawk", gawk_parser)
-
 local gfind_parser = clink.arg.new_parser()
+gfind_parser:set_flags(
+	"-and",
+	"-or",
+	"-daystart",
+	"-follow",
+	"-depth",
+	"--help",
+	"-maxdepth",
+	"-mindepth",
+	"-mount",
+	"-noleaf",
+	"--version",
+	"-xdev",
+	"-ignore_readdir_race",
+	"-noignore_readdir_race",
+	"-amin",
+	"-anewer",
+	"-atime",
+	"-cmin",
+	"-cnewer",
+	"-ctime",
+	"-empty",
+	"-false",
+	"-fstype",
+	"-gid",
+	"-group",
+	"-ilname",
+	"-iname",
+	"-inum",
+	"-iwholename",
+	"-iregex",
+	"-links",
+	"-lname",
+	"-mmin",
+	"-mtime",
+	"-name",
+	"-newer",
+	"-nouser",
+	"-nogroup",
+	"-path",
+	"-perm",
+	"-regex",
+	"-wholename",
+	"-size",
+	"-true",
+	"-type",
+	"-uid",
+	"-used",
+	"-user",
+	"-xtype",
+	"-exec",
+	"-fprint",
+	"-fprint0",
+	"-fprintf",
+	"-fls",
+	"-ok",
+	"-print",
+	"-print0",
+	"-printf",
+	"-prune",
+	"-ls",
+	"-delete",
+	"-quit"
+)
 clink.arg.register_parser("gfind", gfind_parser)
 
 local grep_parser = clink.arg.new_parser()
 clink.arg.register_parser("grep", grep_parser)
-
-local gsar_parser = clink.arg.new_parser()
-clink.arg.register_parser("gsar", gsar_parser)
 
 local gzip_parser = clink.arg.new_parser()
 clink.arg.register_parser("gzip", gzip_parser)
@@ -480,17 +791,10 @@ clink.arg.register_parser("gzip", gzip_parser)
 local head_parser = clink.arg.new_parser()
 clink.arg.register_parser("head", head_parser)
 
-local hostid_parser = clink.arg.new_parser()
-clink.arg.register_parser("hostid", hostid_parser)
-
-local hostname_parser = clink.arg.new_parser()
-clink.arg.register_parser("hostname", hostname_parser)
+clink.arg.register_parser("hostid", clink.arg.new_parser():set_flags("--help", "--version"))
 
 local id_parser = clink.arg.new_parser()
 clink.arg.register_parser("id", id_parser)
-
-local indent_parser = clink.arg.new_parser()
-clink.arg.register_parser("indent", indent_parser)
 
 local install_parser = clink.arg.new_parser()
 clink.arg.register_parser("install", install_parser)
@@ -504,8 +808,7 @@ clink.arg.register_parser("jwhois", jwhois_parser)
 local less_parser = clink.arg.new_parser()
 clink.arg.register_parser("less", less_parser)
 
-local lesskey_parser = clink.arg.new_parser()
-clink.arg.register_parser("lesskey", lesskey_parser)
+clink.arg.register_parser("lesskey", clink.arg.new_parser():set_flags("-o"))
 
 local ln_parser = clink.arg.new_parser()
 clink.arg.register_parser("ln", ln_parser)
@@ -540,9 +843,6 @@ clink.arg.register_parser("nl", nl_parser)
 local od_parser = clink.arg.new_parser()
 clink.arg.register_parser("od", od_parser)
 
-local pageant_parser = clink.arg.new_parser()
-clink.arg.register_parser("pageant", pageant_parser)
-
 local paste_parser = clink.arg.new_parser()
 clink.arg.register_parser("paste", paste_parser)
 
@@ -551,9 +851,6 @@ clink.arg.register_parser("patch", patch_parser)
 
 local pathchk_parser = clink.arg.new_parser()
 clink.arg.register_parser("pathchk", pathchk_parser)
-
-local plink_parser = clink.arg.new_parser()
-clink.arg.register_parser("plink", plink_parser)
 
 local pr_parser = clink.arg.new_parser()
 clink.arg.register_parser("pr", pr_parser)
@@ -627,6 +924,7 @@ rm_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("rm", rm_parser)
+----------------------------------------------------------------------------
 
 local sdiff_parser = clink.arg.new_parser()
 sdiff_parser:set_flags()
