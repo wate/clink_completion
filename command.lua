@@ -2087,3 +2087,20 @@ unzip_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("unzip", unzip_parser)
+
+local ipconfig_parser = clink.arg.new_parser()
+ipconfig_parser:set_flags(
+	"/all",
+	"/release",
+	"/release6",
+	"/renew",
+	"/renew6",
+	"/flushdns",
+	"/registerdns",
+	"/displaydns",
+	"/showclassid",
+	"/setclassid",
+	"/showclassid6",
+	"/setclassid6"
+)
+clink.arg.register_parser("ipconfig", ipconfig_parser)
