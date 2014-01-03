@@ -1623,7 +1623,7 @@ end
 -- Command Prompt Filter
 --------------------------------------------------------
 if promptFilter then
-	function git_prompt_filter()
+	local function git_prompt_filter()
 		local c = tonumber(clink.get_setting_int("prompt_colour"))
 		for line in io.popen("git branch 2>nul"):lines() do
 			local m = line:match("%* (.+)$")
