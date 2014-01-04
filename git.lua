@@ -6,7 +6,7 @@ promptFilter = true
 -- Git extensions
 --------------------------------------------------------
 GitFlow = true
-HubFlow = true
+HubFlow = false
 Legit = false
 git_daily = false
 --------------------------------------------------------
