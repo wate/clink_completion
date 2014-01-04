@@ -1629,7 +1629,7 @@ if promptFilter then
 			local m = line:match("%* (.+)$")
 			if m then
 				if c < 0 then
-					clink.prompt.value = clink.prompt.value.."["..m.."]"
+					clink.prompt.value = "["..m.."]"..clink.prompt.value
 				else
 					clink.prompt.value = "\x1b[33m".."["..m.."]".."\x1b[34m"..clink.prompt.value
 				end
