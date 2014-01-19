@@ -18,33 +18,37 @@ psftp_parser:set_flags(
 )
 clink.arg.register_parser("psftp", psftp_parser)
 
-local putty_parser = clink.arg.new_parser()
-putty_parser:set_flags(
-	"-cleanup",
+local plink_parser = clink.arg.new_parser()
+plink_parser:set_flags(
+	"-V",
+	"-pgpfp",
+	"-v",
 	"-load",
 	"-ssh", "-telnet", "-rlogin", "-raw", "-serial",
-	"-v",
-	"-l",
-	"-l",
-	"-L", "-R", "-D",
-	"-m",
 	"-P",
+	"-l",
+	"-batch",
 	"-pw",
-	"-agent", "-noagent",
-	"-A", "-a",
+	"-D",
+	"-L",
+	"-R",
 	"-X", "-x",
+	"-A", "-a",
 	"-t", "-T",
-	"-N",
-	"-nc",
-	"-C",
 	"-1", "-2",
 	"-4", "-6",
+	"-C",
 	"-i",
-	"-loghost",
-	"-pgpfp",
+	"-noagent",
+	"-agent",
+	"-m",
+	"-s",
+	"-N",
+	"-nc",
 	"-sercfg"
 )
-clink.arg.register_parser("putty", putty_parser)
+clink.arg.register_parser("plink", plink_parser)
+clink.arg.register_parser("putty", plink_parser)
 
 local whoami_parser = clink.arg.new_parser()
 whoami_parser:set_flags(
