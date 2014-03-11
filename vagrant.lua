@@ -17,7 +17,7 @@ vagrant_parser:set_arguments({
 	'halt',
 	'init',
 	'package',
-	"plugin" .. clink.arg.new_parser():set_arguments({'install', 'license', 'list', 'uninstall'}),
+	"plugin" .. clink.arg.new_parser():set_arguments({'install', 'license', 'list', 'update', 'uninstall'}),
 	'provision',
 	'reload',
 	'resume',
