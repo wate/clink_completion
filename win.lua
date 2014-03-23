@@ -8,7 +8,6 @@ pscp_parser:set_flags(
 	"-sftp", "-scp"
 )
 clink.arg.register_parser("pscp", pscp_parser)
-
 local psftp_parser = clink.arg.new_parser()
 psftp_parser:set_flags(
 	"-b",
@@ -17,7 +16,6 @@ psftp_parser:set_flags(
 	"-batch"
 )
 clink.arg.register_parser("psftp", psftp_parser)
-
 local plink_parser = clink.arg.new_parser()
 plink_parser:set_flags(
 	"-V",
@@ -49,7 +47,6 @@ plink_parser:set_flags(
 )
 clink.arg.register_parser("plink", plink_parser)
 clink.arg.register_parser("putty", plink_parser)
-
 local whoami_parser = clink.arg.new_parser()
 whoami_parser:set_flags(
 	"-UPN",
@@ -63,7 +60,6 @@ whoami_parser:set_flags(
 	"-NH"
 )
 clink.arg.register_parser("whoami", whoami_parser)
-
 local ipconfig_parser = clink.arg.new_parser()
 ipconfig_parser:set_flags(
 	"-all",

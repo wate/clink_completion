@@ -14,7 +14,6 @@ local oil_package_argument_parser = {
 	'install',
 	'uninstall'
 }
-
 local oil_refine_argument_parser = {
 	'help',
 	'install',
@@ -32,7 +31,6 @@ local oil_refine_argument_parser = {
 	'session:clear',
 	'session:help'
 }
-
 local oil_cell_argument_parser = {
 	'help',
 	'list',
@@ -63,7 +61,6 @@ local oil_server_argument_parser = {
 	'-router',
 	'-r'
 }
-
 local oil_argument_parser = {
 	'help',
 	generate = oil_generate_argument_parser,
