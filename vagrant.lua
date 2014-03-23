@@ -175,8 +175,9 @@ vagrant_plugin_update_parser:set_flags("--help", "-h");
 -- vagrant plugin
 -------------------
 local vagrant_plugin_parser = clink.arg.new_parser()
-vagrant_box_parser:set_flags("--help", "-h");
-vagrant_box_parser:set_arguments({
+vagrant_plugin_parser:set_flags("--help", "-h");
+vagrant_plugin_parser:set_arguments({
+	"install"..vagrant_plugin_install_parser,
 	"install"..vagrant_plugin_install_parser,
 	"license"..vagrant_plugin_license_parser,
 	"list"..vagrant_plugin_list_parser,
@@ -297,7 +298,7 @@ vagrant_parser:set_arguments({
 	"suspend"..vagrant_suspend_parser,
 	"up"..vagrant_up_parser
 })
-
+clink.arg.register_parser("vagrant", vagrant_parser)
 --------------------------------------------------------
 -- Plugin
 --------------------------------------------------------
