@@ -297,7 +297,7 @@ vagrant_parser:set_arguments({
 	"suspend"..vagrant_suspend_parser,
 	"up"..vagrant_up_parser
 })
-
+clink.arg.register_parser("vagrant", vagrant_parser)
 --------------------------------------------------------
 -- Plugin
 --------------------------------------------------------
