@@ -55,7 +55,6 @@ ack_parser:set_flags(
 	"--vim",
 	"--xml",
 	"--yaml",
-
 	"-i", "--ignore-case",
 	"--smart-case", "--nosmart-case",
 	"-v", "--invert-match",
@@ -122,7 +121,6 @@ ack_parser:set_flags(
 	"--help", "-?"
 )
 clink.arg.register_parser("ack", ack_parser)
-
 local awk_parser = clink.arg.new_parser()
 awk_parser:set_flags(
 	"-f", "--file=progfile",
@@ -171,9 +169,6 @@ awk_parser:set_flags(
 )
 clink.arg.register_parser("awk", awk_parser)
 clink.arg.register_parser("gawk", awk_parser)
-
-clink.arg.register_parser("basename", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local bc_parser = clink.arg.new_parser()
 bc_parser:set_flags(
 	"-h", "--help",
@@ -185,7 +180,6 @@ bc_parser:set_flags(
 	"-v", "--version"
 )
 clink.arg.register_parser("bc", bc_parser)
-
 local bison_parser = clink.arg.new_parser()
 bison_parser:set_flags(
 	"-h", "--help",
@@ -212,7 +206,6 @@ bison_parser:set_flags(
 	"-x", "--xml"
 )
 clink.arg.register_parser("bison", bison_parser)
-
 local bunzip2_parser = clink.arg.new_parser()
 bunzip2_parser:set_flags(
 	"-h", "--help",
@@ -232,7 +225,6 @@ bunzip2_parser:set_flags(
 	"--best"
 )
 clink.arg.register_parser("bunzip2", bunzip2_parser)
-
 local bzip2_parser = clink.arg.new_parser()
 bzip2_parser:set_flags(
 	"-h", "--help",
@@ -252,7 +244,6 @@ bzip2_parser:set_flags(
 	"--best"
 )
 clink.arg.register_parser("bzip2", bzip2_parser)
-
 local cat_parser = clink.arg.new_parser()
 cat_parser:set_flags(
 	"-A", "--show-all",
@@ -270,7 +261,6 @@ cat_parser:set_flags(
 	"-B, --binary"
 )
 clink.arg.register_parser("cat", cat_parser)
-
 local chgrp_parser = clink.arg.new_parser()
 chgrp_parser:set_flags(
 	"-c", "--changes",
@@ -289,7 +279,6 @@ chgrp_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("chgrp", chgrp_parser)
-
 local chmod_parser = clink.arg.new_parser()
 chmod_parser:set_flags(
 	"-c", "--changes",
@@ -303,7 +292,6 @@ chmod_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("chmod", chmod_parser)
-
 local chown_parser = clink.arg.new_parser()
 chown_parser:set_flags(
 	"-c", "--changes",
@@ -323,10 +311,6 @@ chown_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("chown", chown_parser)
-
-clink.arg.register_parser("chroot", clink.arg.new_parser():set_flags("--help", "--version"))
-clink.arg.register_parser("cksum", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local cp_parser = clink.arg.new_parser()
 cp_parser:set_flags(
 	"-a", "--archive",
@@ -361,7 +345,6 @@ cp_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("cp", cp_parser)
-
 local csplit_parser = clink.arg.new_parser()
 csplit_parser:set_flags(
 	"-b", "--suffix-format",
@@ -374,7 +357,6 @@ csplit_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("csplit", csplit_parser)
-
 local curl_parser = clink.arg.new_parser()
 curl_parser:set_flags(
 	"--anyauth",
@@ -532,7 +514,6 @@ curl_parser:set_flags(
 	"-q"
 )
 clink.arg.register_parser("curl", curl_parser)
-
 local cut_parser = clink.arg.new_parser()
 cut_parser:set_flags(
 	"-b", "--bytes",
@@ -546,7 +527,6 @@ cut_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("cut", cut_parser)
-
 local dc_parser = clink.arg.new_parser()
 dc_parser:set_flags(
 	"-e", "--expression",
@@ -555,7 +535,6 @@ dc_parser:set_flags(
 	"-V", "--version"
 )
 clink.arg.register_parser("dc", dc_parser)
-
 local df_parser = clink.arg.new_parser()
 df_parser:set_flags(
 	"-a", "--all",
@@ -575,7 +554,6 @@ df_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("df", df_parser)
-
 local diff_parser = clink.arg.new_parser()
 diff_parser:set_flags(
 	"-i", "--ignore-case",
@@ -626,7 +604,6 @@ diff_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("diff", diff_parser)
-
 local diff3__parser = clink.arg.new_parser()
 diff3__parser:set_flags(
 	"-e", "--ed",
@@ -646,9 +623,6 @@ diff3__parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("diff3", diff3_parser)
-
-clink.arg.register_parser("dirname", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local du_parser = clink.arg.new_parser()
 du_parser:set_flags(
 	"-a", "--all",
@@ -676,7 +650,6 @@ du_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("du", du_parser)
-
 local egrep_parser = clink.arg.new_parser()
 egrep_parser:set_flags(
 	"-e", "--regexp",
@@ -723,7 +696,6 @@ egrep_parser:set_flags(
 	"-u", "--unix-byte-offsets"
 )
 clink.arg.register_parser("egrep", egrep_parser)
-
 local env_parser = clink.arg.new_parser()
 env_parser:set_flags(
 	"-i", "--ignore-environment",
@@ -732,10 +704,6 @@ env_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("env", env_parser)
-
-clink.arg.register_parser("expr", clink.arg.new_parser():set_flags("--help", "--version"))
-clink.arg.register_parser("factor", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local fgrep_parser = clink.arg.new_parser()
 fgrep_parser:set_flags(
 	"-e", "--regexp",
@@ -782,41 +750,6 @@ fgrep_parser:set_flags(
 	"-u", "--unix-byte-offsets"
 )
 clink.arg.register_parser("fgrep", fgrep_parser)
-
-local flex_parser = clink.arg.new_parser()
-flex_parser:set_flags(
-	"-b",
-	"-c",
-	"-d",
-	"-f",
-	"-h",
-	"-i",
-	"-l",
-	"-n",
-	"-p",
-	"-s",
-	"-t",
-	"-v",
-	"-w",
-	"-B",
-	"-F",
-	"-I",
-	"-L",
-	"-T",
-	"-V",
-	"-7",
-	"-8",
-	"-+",
-	"-?",
-	"-C",
-	"-o",
-	"-P",
-	"-S",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("flex", flex_parser)
-
 local fmt_parser = clink.arg.new_parser()
 fmt_parser:set_flags(
 	"-c", "--crown-margin",
@@ -829,17 +762,6 @@ fmt_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("fmt", fmt_parser)
-
-local fold_parser = clink.arg.new_parser()
-fold_parser:set_flags(
-	"-b", "--bytes",
-	"-s", "--spaces",
-	"-w", "--width",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("fold", fold_parser)
-
 local gfind_parser = clink.arg.new_parser()
 gfind_parser:set_flags(
 	"-and",
@@ -906,7 +828,6 @@ gfind_parser:set_flags(
 	"-quit"
 )
 clink.arg.register_parser("gfind", gfind_parser)
-
 local grep_parser = clink.arg.new_parser()
 grep_parser:set_flags(
 	"-E", "--extended-regexp",
@@ -957,7 +878,6 @@ grep_parser:set_flags(
 	"-u", "--unix-byte-offsets"
 )
 clink.arg.register_parser("grep", grep_parser)
-
 local gzip_parser = clink.arg.new_parser()
 gzip_parser:set_flags(
 	"-a", "--ascii",
@@ -981,7 +901,6 @@ gzip_parser:set_flags(
 	"--rsyncable"
 )
 clink.arg.register_parser("gzip", gzip_parser)
-
 local head_parser = clink.arg.new_parser()
 head_parser:set_flags(
 	"-c", "--bytes",
@@ -992,9 +911,6 @@ head_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("head", head_parser)
-
-clink.arg.register_parser("hostid", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local id_parser = clink.arg.new_parser()
 id_parser:set_flags(
 	"-a",
@@ -1007,7 +923,6 @@ id_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("id", id_parser)
-
 local install_parser = clink.arg.new_parser()
 install_parser:set_flags(
 	"--backup",
@@ -1027,23 +942,6 @@ install_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("install", install_parser)
-
-local join_parser = clink.arg.new_parser()
-join_parser:set_flags(
-	"-a",
-	"-e",
-	"-i", "--ignore-case",
-	"-j",
-	"-o",
-	"-t",
-	"-v",
-	"-1",
-	"-2",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("join", join_parser)
-
 local jwhois_parser = clink.arg.new_parser()
 jwhois_parser:set_flags(
 	"-v", "--verbose",
@@ -1063,7 +961,6 @@ jwhois_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("jwhois", jwhois_parser)
-
 local less_parser = clink.arg.new_parser()
 less_parser:set_flags(
 	"-a", "--search-skip-screen",
@@ -1110,9 +1007,6 @@ less_parser:set_flags(
 	"-?", "--help"
 )
 clink.arg.register_parser("less", less_parser)
-
-clink.arg.register_parser("lesskey", clink.arg.new_parser():set_flags("-o"))
-
 local ln_parser = clink.arg.new_parser()
 ln_parser:set_flags(
 	"--backup",
@@ -1130,7 +1024,6 @@ ln_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("ln", ln_parser)
-
 local ls_parser = clink.arg.new_parser()
 ls_parser:set_flags(
 	"-a", "--all",
@@ -1190,7 +1083,6 @@ ls_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("ls", ls_parser)
-
 local m4_parser = clink.arg.new_parser()
 m4_parser:set_flags(
 	"-E", "--fatal-warnings",
@@ -1217,7 +1109,6 @@ m4_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("m4", m4_parser)
-
 local make_parser = clink.arg.new_parser()
 make_parser:set_flags(
 	"-b", "-m",
@@ -1250,7 +1141,6 @@ make_parser:set_flags(
 	"-h", "--help"
 )
 clink.arg.register_parser("make", make_parser)
-
 local md5sum__parser = clink.arg.new_parser()
 md5sum__parser:set_flags(
 	"-b", "--binary",
@@ -1262,16 +1152,6 @@ md5sum__parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("md5sum", md5sum_parser)
-
-local mk___parser = clink.arg.new_parser()
-mk___parser:set_flags(
-	"-m", "--mode",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("mkfifo", mk___parser)
-clink.arg.register_parser("mknod", mk___parser)
-
 local mv_parser = clink.arg.new_parser()
 mv_parser:set_flags(
 	"--backup",
@@ -1289,10 +1169,8 @@ mv_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("mv", mv_parser)
-
 local ncftp_parser = clink.arg.new_parser()
 clink.arg.register_parser("ncftp", clink.arg.new_parser():set_flags("-u", "-p", "-P", "-j", "-F"))
-
 local nl_parser = clink.arg.new_parser()
 nl_parser:set_flags(
 	"-b", "--body-numbering",
@@ -1310,7 +1188,6 @@ nl_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("nl", nl_parser)
-
 local od_parser = clink.arg.new_parser()
 od_parser:set_flags(
 	"-A", "--address-radix",
@@ -1321,7 +1198,6 @@ od_parser:set_flags(
 	"-v", "--output-duplicates",
 	"-w", "--width",
 	"--traditional",
-
 	"-a",
 	"-b",
 	"-c",
@@ -1336,7 +1212,6 @@ od_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("od", od_parser)
-
 local paste_parser = clink.arg.new_parser()
 paste_parser:set_flags(
 	"-d", "--delimiters",
@@ -1345,7 +1220,6 @@ paste_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("paste", paste_parser)
-
 local patch_parser = clink.arg.new_parser()
 patch_parser:set_flags(
 	"-p", "--strip",
@@ -1387,15 +1261,6 @@ patch_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("patch", patch_parser)
-
-local pathchk_parser = clink.arg.new_parser()
-pathchk_parser:set_flags(
-	"-p", "--portability",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("pathchk", pathchk_parser)
-
 local pr_parser = clink.arg.new_parser()
 pr_parser:set_flags(
 	"--columns",
@@ -1425,60 +1290,6 @@ pr_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("pr", pr_parser)
-
-clink.arg.register_parser("printenv", clink.arg.new_parser():set_flags("--help", "--version"))
-clink.arg.register_parser("printf", clink.arg.new_parser():set_flags("--help", "--version"))
-
-local pscp_parser = clink.arg.new_parser()
-pscp_parser:set_flags(
-	"-ls",
-	"-p",
-	"-q",
-	"-r",
-	"-batch",
-	"-sftp", "-scp"
-)
-clink.arg.register_parser("pscp", pscp_parser)
-
-local psftp_parser = clink.arg.new_parser()
-psftp_parser:set_flags(
-	"-b",
-	"-bc",
-	"-be",
-	"-batch"
-)
-clink.arg.register_parser("psftp", psftp_parser)
-
-local putty_parser = clink.arg.new_parser()
-putty_parser:set_flags(
-	"-cleanup",
-	"-load",
-	"-ssh", "-telnet", "-rlogin", "-raw", "-serial",
-	"-v",
-	"-l",
-	"-l",
-	"-L", "-R", "-D",
-	"-m",
-	"-P",
-	"-pw",
-	"-agent", "-noagent",
-	"-A", "-a",
-	"-X", "-x",
-	"-t", "-T",
-	"-N",
-	"-nc",
-	"-C",
-	"-1", "-2",
-	"-4", "-6",
-	"-i",
-	"-loghost",
-	"-pgpfp",
-	"-sercfg"
-)
-clink.arg.register_parser("putty", putty_parser)
-
-clink.arg.register_parser("pwd", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local rm_parser = clink.arg.new_parser()
 rm_parser:set_flags(
 	"-d", "--directory",
@@ -1492,7 +1303,6 @@ rm_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("rm", rm_parser)
-
 local sdiff_parser = clink.arg.new_parser()
 sdiff_parser:set_flags(
 	"-o", "--output",
@@ -1516,7 +1326,6 @@ sdiff_parser:set_flags(
 	"-v", "--version"
 )
 clink.arg.register_parser("sdiff", sdiff_parser)
-
 local sed_parser = clink.arg.new_parser()
 sed_parser:set_flags(
 	"-n", "--quiet", "--silent",
@@ -1534,7 +1343,6 @@ sed_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("sed", sed_parser)
-
 local seq_parser = clink.arg.new_parser()
 seq_parser:set_flags(
 	"-f", "--format",
@@ -1544,7 +1352,6 @@ seq_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("seq", seq_parser)
-
 local sha1sum_parser = clink.arg.new_parser()
 sha1sum_parser:set_flags(
 	"-b", "--binary",
@@ -1556,7 +1363,6 @@ sha1sum_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("sha1sum", sha1sum_parser)
-
 local shar_parser = clink.arg.new_parser()
 shar_parser:set_flags(
 	"-q", "--quiet", "--silent",
@@ -1592,9 +1398,6 @@ shar_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("shar", shar_parser)
-
-clink.arg.register_parser("sleep", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local split_parser = clink.arg.new_parser()
 split_parser:set_flags(
 	"-a", "--suffix-length",
@@ -1607,7 +1410,6 @@ split_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("split", split_parser)
-
 local su_parser = clink.arg.new_parser()
 su_parser:set_flags(
 	"-", "-l", "--login",
@@ -1620,28 +1422,6 @@ su_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("su", su_parser)
-
-local sum_parser = clink.arg.new_parser()
-sum_parser:set_flags(
-	"-r",
-	"-s", "--sysv",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("sum", sum_parser)
-
-clink.arg.register_parser("sync", clink.arg.new_parser():set_flags("--help", "--version"))
-
-local tac_parser = clink.arg.new_parser()
-tac_parser:set_flags(
-	"-b", "--before",
-	"-r", "--regex",
-	"-s", "--separator",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("tac", tac_parser)
-
 local tail_parser = clink.arg.new_parser()
 tail_parser:set_flags(
 	"--retry",
@@ -1658,7 +1438,6 @@ tail_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("tail", tail_parser)
-
 local tar_parser = clink.arg.new_parser()
 tar_parser:set_flags(
 	"-t", "--list",
@@ -1736,16 +1515,6 @@ tar_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("tar", tar_parser)
-
-local tee_parser = clink.arg.new_parser()
-tee_parser:set_flags(
-	"-a, --append",
-	"-i, --ignore-interrupts",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("tee", tee_parser)
-
 local touch_parser = clink.arg.new_parser()
 touch_parser:set_flags(
 	"-a",
@@ -1759,7 +1528,6 @@ touch_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("touch", touch_parser)
-
 local tr_parser = clink.arg.new_parser()
 tr_parser:set_flags(
 	"-c", "-C", "--complement",
@@ -1770,7 +1538,6 @@ tr_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("tr", tr_parser)
-
 local uname_parser = clink.arg.new_parser()
 uname_parser:set_flags(
 	"-a", "--all",
@@ -1786,17 +1553,6 @@ uname_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("uname", uname_parser)
-
-local unexpand_parser = clink.arg.new_parser()
-unexpand_parser:set_flags(
-	"-a", "--all",
-	"--first-only",
-	"-t", "--tabs",
-	"--help",
-	"--version"
-)
-clink.arg.register_parser("unexpand", unexpand_parser)
-
 local uniq_parser = clink.arg.new_parser()
 uniq_parser:set_flags(
 	"-c", "--count",
@@ -1811,9 +1567,6 @@ uniq_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("uniq", uniq_parser)
-
-clink.arg.register_parser("unlink", clink.arg.new_parser():set_flags("--help", "--version"))
-
 local unshar_parser = clink.arg.new_parser()
 unshar_parser:set_flags(
 	"-d, --directory",
@@ -1825,23 +1578,6 @@ unshar_parser:set_flags(
 	"--version"
 )
 clink.arg.register_parser("unshar", unshar_parser)
-
-local uudecode_parser = clink.arg.new_parser()
-uudecode_parser:set_flags(
-	"-o", "--output-file",
-	"-h", "--help",
-	"-v", "--version"
-)
-clink.arg.register_parser("uudecode", uudecode_parser)
-
-local uuencode_parser = clink.arg.new_parser()
-uuencode_parser:set_flags(
-	"-h", "--help",
-	"-m", "--base64",
-	"-v", "--version"
-)
-clink.arg.register_parser("uuencode", uuencode_parser)
-
 local wc_parser = clink.arg.new_parser()
 wc_parser:set_flags(
 	"-c", "--bytes",
@@ -1853,7 +1589,6 @@ wc_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("wc", wc_parser)
-
 local wget_parser = clink.arg.new_parser()
 wget_parser:set_flags(
 	"-V", "--version",
@@ -1963,7 +1698,6 @@ wget_parser:set_flags(
 	"-np", "--no-parent"
 );
 clink.arg.register_parser("wget", wget_parser)
-
 local which_parser = clink.arg.new_parser()
 which_parser:set_flags(
 	"--skip-dot",
@@ -1980,23 +1714,6 @@ which_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("which", which_parser)
-
-local whoami_parser = clink.arg.new_parser()
-whoami_parser:set_flags(
-	"/UPN",
-	"/FQDN",
-	"/USER",
-	"/GROUPS",
-	"/PRIV",
-	"/LOGONID",
-	"/ALL",
-	"/FO",
-	"/NH",
-	"/?",
-	"--help"
-)
-clink.arg.register_parser("whoami", whoami_parser)
-
 local xargs_parser = clink.arg.new_parser()
 xargs_parser:set_flags(
 	"-0",
@@ -2020,74 +1737,6 @@ xargs_parser:set_flags(
 	"--help"
 )
 clink.arg.register_parser("xargs", xargs_parser)
-
-clink.arg.register_parser("yes", clink.arg.new_parser():set_flags("--help", "--version"))
-
-local zip_parser = clink.arg.new_parser()
-zip_parser:set_flags(
-	"-f",
-	"-u",
-	"-d",
-	"-m",
-	"-r",
-	"-j",
-	"-0",
-	"-l",
-	"-1",
-	"-9",
-	"-q",
-	"-v",
-	"-c",
-	"-z",
-	"-@",
-	"-o",
-	"-x",
-	"-i",
-	"-F",
-	"-D",
-	"-A",
-	"-J",
-	"-T",
-	"-X",
-	"-!",
-	"-$",
-	"-S",
-	"-e",
-	"-n",
-	"-h2",
-	"--help"
-)
-clink.arg.register_parser("zip", zip_parser)
-
-local unzip_parser = clink.arg.new_parser()
-unzip_parser:set_flags(
-	"-p",
-	"-l",
-	"-f",
-	"-t",
-	"-u",
-	"-z",
-	"-v",
-	"-T",
-	"-x",
-	"-d",
-	"-n",
-	"-q",
-	"-o",
-	"-a",
-	"-j",
-	"-aa",
-	"-C",
-	"-L",
-	"-$",
-	"-V",
-	"-X",
-	"-s",
-	"-M",
-	"--help"
-)
-clink.arg.register_parser("unzip", unzip_parser)
-
 local ipconfig_parser = clink.arg.new_parser()
 ipconfig_parser:set_flags(
 	"-all",

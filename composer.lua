@@ -21,7 +21,6 @@ composer_create_project_parser:set_flags(
 	"--link-type",
 	"--optimize", "-o"
 )
-
 local composer_help_parser = clink.arg.new_parser()
 composer_help_parser:set_flags(
 	"--xml",
@@ -47,7 +46,6 @@ composer_init_parser:set_flags(
 	"--require-dev",
 	"--stability", "-s"
 )
-
 local composer_install_parser = clink.arg.new_parser()
 composer_install_parser:set_flags(
 	"--prefer-source",
@@ -60,7 +58,6 @@ composer_install_parser:set_flags(
 	"--no-progress",
 	"--optimize-autoloader", "-o"
 )
-
 local composer_require_parser = clink.arg.new_parser()
 composer_require_parser:set_flags(
 	"--prefer-source",
