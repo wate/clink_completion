@@ -52,7 +52,6 @@ local pear_help_parser = clink.arg.new_parser()
 pear_help_parser:set_arguments({
 	"help" .. pear_parser
 	})
-
 clink.arg.register_parser('pear', pear_parser)
 clink.arg.register_parser('pear', pear_help_parser)
 clink.arg.register_parser('pecl', pear_parser)
