@@ -2,6 +2,8 @@
 -- Command Prompt Filter Setting
 --------------------------------------------------------
 promptFilter = true
+promptFilterDetail = true
+promptFilterDetailStash = false
 --------------------------------------------------------
 -- Git extensions
 --------------------------------------------------------
@@ -1625,17 +1627,64 @@ end
 if promptFilter then
 	local function git_prompt_filter()
 		local c = tonumber(clink.get_setting_int("prompt_colour"))
-		for line in io.popen("git branch 2>nul"):lines() do
+		local gitInfo = ''
+		local handle = io.popen("git branch 2>nul")
+		for line in handle:lines() do
 			local m = line:match("%* (.+)$")
 			if m then
 				if c < 0 then
-					clink.prompt.value = "["..m.."]"..clink.prompt.value
+					gitInfo = "["..m.."]"
 				else
-					clink.prompt.value = "\x1b[33m".."["..m.."]".."\x1b[34m"..clink.prompt.value
+					gitInfo = "\x1b[33m".."["..m.."]"
 				end
 				break
 			end
 		end
+		handle:close()
+		if gitInfo ~= '' then
+			local uc = ''
+			local us = ''
+			local ut = ''
+			local st = ''
+			if promptFilterDetail then
+				for line in io.popen("git status -s"):lines() do
+					--Check for uncommitted changes in the index
+					if string.find(line, "^[AMD]") then
+						uc='+'
+					elseif string.find(line, "^ [AMD]") then
+						--Check for unstaged changes
+						us='!'
+					else
+						--Check for untracked files
+						ut='?'
+					end
+					if uc ~= '' and us ~= '' and ut ~= '' then
+						break
+					end
+				end
+				if promptFilterDetailStash then
+					--Check for stashed files
+					local handle = io.popen("git rev-parse --verify refs/stash 2>nul")
+					for line in handle:lines() do
+						local m = line:match("(.+)")
+						if m then
+							st='$'
+							break
+						end
+					end
+					handle:close()
+				end
+				if uc ~= '' or us ~= '' or ut ~= '' or st ~= '' then
+					gitInfo = gitInfo..'\x1b[32m['..uc..us..ut..st..']'
+				end
+			end
+			if c < 0 then
+				clink.prompt.value = gitInfo..clink.prompt.value
+			else
+				clink.prompt.value = gitInfo.."\x1b[34m"..clink.prompt.value.."\x1b[39m"
+			end
+		end
+
 		return false
 	end
 	clink.prompt.register_filter(git_prompt_filter, 50)
