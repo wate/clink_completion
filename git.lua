@@ -1463,12 +1463,12 @@ if GitFlow then
 	local git_flow_parser = clink.arg.new_parser()
 	git_flow_parser:set_arguments({
 		"flow"..clink.arg.new_parser():set_arguments({
-			"init"..git_flow_init_parser,		-- Initialize a new git repo with support for the branching model.
-			"feature"..git_flow_feature_parser,	-- Manage your feature branches.
-			"release"..git_flow_release_parser,	-- Manage your release branches.
-			"hotfix"..git_flow_hotfix_parser,	-- Manage your hotfix branches.
-			"support"..git_flow_support_parser,	-- Manage your support branches.
-			"version"..git_flow_version_parser	-- Shows version information.
+			"init"..git_flow_init_parser,
+			"feature"..git_flow_feature_parser,
+			"release"..git_flow_release_parser,
+			"hotfix"..git_flow_hotfix_parser,
+			"support"..git_flow_support_parser,
+			"version"..git_flow_version_parser
 		})
 	})
 	clink.arg.register_parser("git", git_flow_parser)
@@ -1554,14 +1554,14 @@ if HubFlow then
 	local git_hf_parser = clink.arg.new_parser()
 	git_hf_parser:set_arguments({
 		"hf"..clink.arg.new_parser():set_arguments({
-			"init"..git_hf_init_parser,			-- Initialize a new git repo with support for the branching model.
-			"feature"..git_hf_feature_parser,	-- Manage your feature branches.
-			"release"..git_hf_release_parser,	-- Manage your release branches.
-			"hotfix"..git_hf_hotfix_parser,		-- Manage your hotfix branches.
-			"push"..git_hf_push_parser,			-- Push the changes from your current branch (plus any new tags) back upstream.
-			"pull"..git_hf_pull_parser,			-- Pull upstream changes down into your master, develop, and current branches.
-			"update"..git_hf_update_parser,		-- Pull upstream changes down into your master and develop branches.
-			"version"..git_hf_version_parser,	-- Shows version information.
+			"init"..git_hf_init_parser,
+			"feature"..git_hf_feature_parser,
+			"release"..git_hf_release_parser,
+			"hotfix"..git_hf_hotfix_parser,
+			"push"..git_hf_push_parser,
+			"pull"..git_hf_pull_parser,
+			"update"..git_hf_update_parser,
+			"version"..git_hf_version_parser,
 			"upgrade"..clink.arg.new_parser():set_arguments({"help"}),
 			"help"
 		})
@@ -1594,14 +1594,14 @@ end
 if Legit then
 	local git_legit_parser = clink.arg.new_parser()
 	git_legit_parser:set_arguments({
-		"branches",		-- Get a nice pretty list of available branches.
-		"sync",			-- Syncronizes the given branch. Defaults to current branch. Stash, Fetch, Auto-Merge/Rebase, Push, and Unstash. You can only sync published branches.
-		"switch",		-- Switches to specified branch. Defaults to current branch. Automatically stashes and unstashes any changes.
-		"sprout",		-- Creates a new branch off of the specified branch. Swiches to it immediately.
-		"harvest",		-- Auto-Merge/Rebase of specified branch changes into the second branch.
-		"graft",		-- Auto-Merge/Rebase of specified branch into the second branch. Immediately removes specified branch. You can only graft unpublished branches.
-		"publish",		-- Publishes specified branch to the remote.
-		"unpublish"		-- Removes specified branch from the remote.
+		"branches",
+		"sync",
+		"switch",
+		"sprout",
+		"harvest",
+		"graft",
+		"publish",
+		"unpublish"
 	})
 	clink.arg.register_parser("git", git_legit_parser)
 	local legit_parser = clink.arg.new_parser()
