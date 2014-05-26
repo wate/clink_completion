@@ -1,8 +1,6 @@
 vbox_snapshot = true
 vbguest = true
 sahara = false
-global_status = false
-multi_putty = false
 local vagrant_box_add_parser = clink.arg.new_parser();
 vagrant_box_add_parser:set_flags(
 	"--clean", "-c",
@@ -26,6 +24,7 @@ local vagrant_box_outdated_parser = clink.arg.new_parser();
 vagrant_box_outdated_parser:set_flags("--global", "--help", "-h");
 local vagrant_box_remove_parser = clink.arg.new_parser();
 vagrant_box_remove_parser:set_flags(
+	"--force", "-f",
 	"--provider",
 	"--box-version",
 	"--help", "-h"
@@ -60,6 +59,13 @@ vagrant_destroy_parser:set_flags(
 	"--force", "-f",
 	"--help", "-h"
 );
+local vagrant_destroy_parser = clink.arg.new_parser()
+vagrant_destroy_parser:set_flags(
+	"--prune",
+	"--help", "-h"
+);
+local vagrant_destroy_parser = clink.arg.new_parser()
+vagrant_destroy_parser:set_flags("--help", "-h");
 local vagrant_halt_parser = clink.arg.new_parser()
 vagrant_halt_parser:set_flags(
 	"--force", "-f",
@@ -70,6 +76,7 @@ vagrant_help_parser:set_arguments({
 	"box",
 	"connect",
 	"destroy",
+	"global-status",
 	"halt",
 	"init",
 	"list-commands",
@@ -77,19 +84,22 @@ vagrant_help_parser:set_arguments({
 	"package",
 	"plugin",
 	"provision",
+	"rdp",
 	"reload",
 	"resume",
-	"rsync",
-	"rsync-auto",
 	"share",
 	"ssh",
 	"ssh-config",
 	"status",
 	"suspend",
-	"up"
+	"up",
+	"rsync",
+	"rsync-auto"
 });
 local vagrant_init_parser = clink.arg.new_parser()
 vagrant_init_parser:set_flags(
+	"--force", "-f",
+	"--minimal", "-m",
 	"--output",
 	"--help", "-h"
 );
@@ -129,7 +139,6 @@ vagrant_plugin_update_parser:set_flags("--help", "-h");
 local vagrant_plugin_parser = clink.arg.new_parser()
 vagrant_plugin_parser:set_flags("--help", "-h");
 vagrant_plugin_parser:set_arguments({
-	"install"..vagrant_plugin_install_parser,
 	"install"..vagrant_plugin_install_parser,
 	"license"..vagrant_plugin_license_parser,
 	"list"..vagrant_plugin_list_parser,
@@ -192,13 +201,13 @@ vagrant_parser:set_flags(
 	"--help", "-h"
 );
 vagrant_parser:set_arguments({
+	"list-commands"..vagrant_list_commands_parser,
+	"halt"..vagrant_halt_parser,
 	"box"..vagrant_box_parser,
 	"connect"..vagrant_connect_parser,
 	"destroy"..vagrant_destroy_parser,
-	"halt"..vagrant_halt_parser,
 	"help"..vagrant_help_parser,
 	"init"..vagrant_init_parser,
-	"list-commands"..vagrant_list_commands_parser,
 	"login"..vagrant_login_parser,
 	"package"..vagrant_package_parser,
 	"plugin"..vagrant_plugin_parser,
@@ -227,16 +236,6 @@ if sahara then
 		})
 	})
 	clink.arg.register_parser("vagrant", vagrant_sahara_parser)
-end
-if global_status then
-	local vagrant_global_status_parser = clink.arg.new_parser()
-	vagrant_global_status_parser:set_arguments({"global-status"})
-	clink.arg.register_parser("vagrant", vagrant_global_status_parser)
-end
-if multi_putty then
-	local vagrant_multi_putty_parser = clink.arg.new_parser()
-	vagrant_multi_putty_parser:set_arguments({"putty"})
-	clink.arg.register_parser("vagrant", vagrant_multi_putty_parser)
 end
 if vbox_snapshot then
 	local vagrant_vbox_snapshot_parser = clink.arg.new_parser()
