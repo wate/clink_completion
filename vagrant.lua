@@ -1,6 +1,6 @@
-vbox_snapshot = true
-vbguest = true
-sahara = false
+vbox_snapshot = true	-- vagrant-vbox-snapshot
+vbguest = true          -- vagrant-vbguest
+sahara = false          -- sahara
 local vagrant_box_add_parser = clink.arg.new_parser();
 vagrant_box_add_parser:set_flags(
 	"--clean", "-c",
@@ -59,13 +59,13 @@ vagrant_destroy_parser:set_flags(
 	"--force", "-f",
 	"--help", "-h"
 );
-local vagrant_destroy_parser = clink.arg.new_parser()
-vagrant_destroy_parser:set_flags(
+local vagrant_global_status_parser = clink.arg.new_parser()
+vagrant_global_status_parser:set_flags(
 	"--prune",
 	"--help", "-h"
 );
-local vagrant_destroy_parser = clink.arg.new_parser()
-vagrant_destroy_parser:set_flags("--help", "-h");
+local vagrant_rdp_parser = clink.arg.new_parser()
+vagrant_rdp_parser:set_flags("--help", "-h");
 local vagrant_halt_parser = clink.arg.new_parser()
 vagrant_halt_parser:set_flags(
 	"--force", "-f",
@@ -202,26 +202,29 @@ vagrant_parser:set_flags(
 );
 vagrant_parser:set_arguments({
 	"list-commands"..vagrant_list_commands_parser,
-	"halt"..vagrant_halt_parser,
 	"box"..vagrant_box_parser,
 	"connect"..vagrant_connect_parser,
 	"destroy"..vagrant_destroy_parser,
+	"global-status"..vagrant_global_status_parser,
+	"halt"..vagrant_halt_parser,
 	"help"..vagrant_help_parser,
 	"init"..vagrant_init_parser,
 	"login"..vagrant_login_parser,
 	"package"..vagrant_package_parser,
 	"plugin"..vagrant_plugin_parser,
 	"provision"..vagrant_provision_parser,
+	"rdp"..vagrant_rdp_parser,
 	"reload"..vagrant_reload_parser,
 	"resume"..vagrant_resume_parser,
-	"rsync"..vagrant_rsync_parser,
-	"rsync-auto"..vagrant_rsync_auto_parser,
 	"share"..vagrant_share_parser,
 	"ssh"..vagrant_ssh_parser,
 	"ssh-config"..vagrant_ssh_config_parser,
 	"status"..vagrant_status_parser,
 	"suspend"..vagrant_suspend_parser,
-	"up"..vagrant_up_parser
+	"up"..vagrant_up_parser,
+	"rsync"..vagrant_rsync_parser,
+	"rsync-auto"..vagrant_rsync_auto_parser,
+	"version"
 })
 clink.arg.register_parser("vagrant", vagrant_parser)
 if sahara then

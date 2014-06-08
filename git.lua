@@ -5,6 +5,7 @@ GitFlow = true
 HubFlow = false
 Legit = false
 git_daily = false
+---------------------------------------------
 local git_init_parser = clink.arg.new_parser()
 git_init_parser:set_flags(
 	"--quiet", "-q",
