@@ -11,6 +11,40 @@ GitFlow = true
 HubFlow = false
 Legit = false
 git_daily = false
+
+
+local function getRemoteList(token){
+	local remotes = {}
+	local handle = io.popen("git remote 2>nul")
+	for line in handle:lines() do
+		if string.match(line, token) then
+			table.insert(remotes, line)
+        end
+	end
+	return remotes
+}
+
+local function getBranchList(token){
+	local branchs = {}
+	local handle = io.popen("git branch 2>nul")
+	for line in handle:lines() do
+		local m = line:match("%* (.+)$")
+		if m then
+			if string.match(line, token) then
+				table.insert(branchs, line)
+			end
+		else
+			if string.match(line, token) then
+				table.insert(branchs, line)
+			end
+		end
+	end
+	return branchs
+}
+
+
+
+
 --------------------------------------------------------
 -- git init
 --------------------------------------------------------
@@ -111,6 +145,7 @@ git_commit_parser:set_flags(
 -- git push
 --------------------------------------------------------
 local git_push_parser = clink.arg.new_parser()
+git_push_parser:set_arguments({"strip", "whitespace", "verbatim", "default"})
 git_push_parser:set_flags(
 	"--all",
 	"--prune",
