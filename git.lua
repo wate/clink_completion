@@ -16,27 +16,50 @@ git_daily = false
 local function getRemoteList(token)
 	local remotes = {}
 	local handle = io.popen("git remote 2>nul")
-	for line in handle:lines() do
-		if string.match(line, token) then
-			table.insert(remotes, line)
-        end
+	for remote in handle:lines() do
+		if token then
+			if string.match(remote, token) then
+				table.insert(remotes, remote)
+			end
+		else
+			table.insert(remotes, remote)
+		end
 	end
+	handle:close()
 	return remotes
 end
+
 local function getBranchList(token)
-	local branchs = {}
+	local branches = {}
 	local handle = io.popen("git branch 2>nul")
 	for line in handle:lines() do
 		local branch = string.match(line, "[^%s]+$")
 		if branch then
-			if string.match(branch, token) then
-				table.insert(branchs, branch)
+			if token then
+				if string.match(branch, token) then
+					table.insert(branches, branch)
+				end
+			else
+				table.insert(branches, branch)
 			end
 		end
 	end
-	return branchs
+	handle:close()
+	return branches
 end
-
+local function getCurrentBranch()
+	local currentBranch = nil
+	local handle = io.popen("git branch 2>nul")
+	for line in handle:lines() do
+		local m = line:match("%* (.+)$")
+		if m then
+			currentBranch = m
+			break
+		end
+	end
+	handle:close()
+	return currentBranch
+end
 --------------------------------------------------------
 -- git init
 --------------------------------------------------------
@@ -1427,6 +1450,93 @@ clink.arg.register_parser("git", git_parser)
 -- Git Flow
 --------------------------------------------------------
 if GitFlow then
+	local gitFlowBranchPrefix = {}
+	local handle = io.popen("git config --get-regexp gitflow.prefix 2>nul")
+	for line in handle:lines() do
+		if line then
+			for k, v in string.gmatch(line, "gitflow.prefix.(%w+)%s+([^%s]*)") do
+				gitFlowBranchPrefix[k] = v
+			end	
+		end
+	end
+	handle:close()
+	-- ブランチ名に指定のプレフィックスがあるかどうか判定
+	local function isBranchType(prefix, branchName)
+		local tmp = string.match(branchName, "^"..prefix)
+		if tmp then
+			return true
+		else
+			return false
+		end
+	end
+	-- ブランチ名が機能ブランチかどうか判定
+	local function isFeature(branchName)
+		return isBranchType(gitFlowBranchPrefix.feature, branchName)
+	end
+	-- ブランチ名がリリースブランチかどうか判定
+	local function isRelease(branchName)
+		return isBranchType(gitFlowBranchPrefix.release, branchName)
+	end
+	-- ブランチ名がホットフィックスブランチかどうか判定
+	local function isHotfix(branchName)
+		return isBranchType(gitFlowBranchPrefix.hotfix, branchName)
+	end
+	-- ブランチ名がサポートブランチかどうか判定
+	local function isSupport(branchName)
+		return isBranchType(gitFlowBranchPrefix.support, branchName)
+	end
+	-- 指定のプレフィックスのブランチの一覧を取得
+	local function getFlowBranchList(prefix, token)
+		local flowBranches = {}
+		local i = string.len(prefix)
+		branchList = getBranchList()
+		for branchName in pairs(branchList) do 
+			if token then
+				local tmp = string.match(branchName, "^"..prefix..token)
+				if tmp then
+					table.insert(flowBranches, string.sub(branchName, i))
+				end
+			else
+				table.insert(flowBranches, string.sub(branchName, i))
+			end
+		end
+		return flowBranches
+	end
+	-- 機能ブランチの一覧を取得
+	local function getFeatureBranchList(token)
+		return getFlowBranchList(gitFlowBranchPrefix.feature, token)
+	end
+	-- リリースブランチの一覧を取得
+	local function getReleaseBranchList(token)
+		return getFlowBranchList(gitFlowBranchPrefix.release, token)
+	end
+	-- ホットフィックスブランチの一覧を取得
+	local function getHotfixBranchList(token)
+		return getFlowBranchList(gitFlowBranchPrefix.hotfix, token)
+	end
+	-- サポートブランチの一覧を取得
+	local function getSupportBranchList(token)
+		return getFlowBranchList(gitFlowBranchPrefix.support, token)
+	end
+	-- 
+	local function getFeatureFinishBranchList(token)
+		local branches = {}
+		if token then
+			branches = getFeatureBranchList(token)
+		else
+			local currenBranch = getCurrentBranch()
+			if isFeature(currenBranch) then
+				table.insert(branches, string.sub(currenBranch, string.len(gitFlowBranchPrefix.feature) + 1))
+			else
+				branches = getFeatureBranchList()
+			end
+		end
+		return branches
+	end
+
+	git_flow_feature_finish_parser = clink.arg.new_parser()
+	git_flow_feature_finish_parser:set_arguments({getFeatureFinishBranchList()})
+	git_flow_feature_finish_parser:set_flags("-F", "-r", "-k", "-D", "-S")
 	---------------------
 	-- git flow init
 	---------------------
@@ -1440,7 +1550,7 @@ if GitFlow then
 	git_flow_feature_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_flags("-F", "-r", "-k", "-D", "-S"),
+		"finish"..git_flow_feature_finish_parser,
 		"publish",
 		"track",
 		"diff",
@@ -1657,19 +1767,14 @@ if promptFilter then
 	local function git_prompt_filter()
 		local c = tonumber(clink.get_setting_int("prompt_colour"))
 		local gitInfo = ''
-		local handle = io.popen("git branch 2>nul")
-		for line in handle:lines() do
-			local m = line:match("%* (.+)$")
-			if m then
-				if c < 0 then
-					gitInfo = "["..m.."]"
-				else
-					gitInfo = "\x1b[33m".."["..m.."]"
-				end
-				break
+		local currenBranck = getCurrentBranch()
+		if currenBranck then
+			if c < 0 then
+				gitInfo = "["..currenBranck.."]"
+			else
+				gitInfo = "\x1b[33m".."["..currenBranck.."]"
 			end
 		end
-		handle:close()
 		if gitInfo ~= '' then
 			local uc = ''
 			local us = ''
