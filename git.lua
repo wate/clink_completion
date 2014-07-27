@@ -1258,16 +1258,18 @@ if GitFlow then
 	end
 	local function getFlowBranchList(prefix, token)
 		local flowBranches = {}
-		local i = string.len(prefix) + 1
-		local branchList = getBranchList()
-		local regexp = "^"..prefix
-		if token then
-			regexp = regexp..token
-		end
-		for _, branchName in pairs(branchList) do 
-			local tmp = string.match(branchName, regexp)
-			if tmp then
-				table.insert(flowBranches, string.sub(branchName, i))
+		if prefix then
+			local i = string.len(prefix) + 1
+			local branchList = getBranchList()
+			local regexp = "^"..prefix
+			if token then
+				regexp = regexp..token
+			end
+			for _, branchName in pairs(branchList) do 
+				local tmp = string.match(branchName, regexp)
+				if tmp then
+					table.insert(flowBranches, string.sub(branchName, i))
+				end
 			end
 		end
 		return flowBranches
