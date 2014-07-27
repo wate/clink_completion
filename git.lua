@@ -1488,15 +1488,15 @@ if GitFlow then
 	-- 指定のプレフィックスのブランチの一覧を取得
 	local function getFlowBranchList(prefix, token)
 		local flowBranches = {}
-		local i = string.len(prefix)
-		branchList = getBranchList()
-		for branchName in pairs(branchList) do 
-			if token then
-				local tmp = string.match(branchName, "^"..prefix..token)
-				if tmp then
-					table.insert(flowBranches, string.sub(branchName, i))
-				end
-			else
+		local i = string.len(prefix) + 1
+		local branchList = getBranchList()
+		local regexp = "^"..prefix
+		if token then
+			regexp = regexp..token
+		end
+		for _, branchName in pairs(branchList) do 
+			local tmp = string.match(branchName, regexp)
+			if tmp then
 				table.insert(flowBranches, string.sub(branchName, i))
 			end
 		end
@@ -1514,29 +1514,9 @@ if GitFlow then
 	local function getHotfixBranchList(token)
 		return getFlowBranchList(gitFlowBranchPrefix.hotfix, token)
 	end
-	-- サポートブランチの一覧を取得
-	local function getSupportBranchList(token)
-		return getFlowBranchList(gitFlowBranchPrefix.support, token)
-	end
-	-- 
-	local function getFeatureFinishBranchList(token)
-		local branches = {}
-		if token then
-			branches = getFeatureBranchList(token)
-		else
-			local currenBranch = getCurrentBranch()
-			if isFeature(currenBranch) then
-				table.insert(branches, string.sub(currenBranch, string.len(gitFlowBranchPrefix.feature) + 1))
-			else
-				branches = getFeatureBranchList()
-			end
-		end
-		return branches
-	end
-
-	git_flow_feature_finish_parser = clink.arg.new_parser()
-	git_flow_feature_finish_parser:set_arguments({getFeatureFinishBranchList()})
-	git_flow_feature_finish_parser:set_flags("-F", "-r", "-k", "-D", "-S")
+	local featureBranchList = getFeatureBranchList()
+	local releaseBranchList = getReleaseBranchList()
+	local hotfixBranchList = getHotfixBranchList()
 	---------------------
 	-- git flow init
 	---------------------
@@ -1550,13 +1530,13 @@ if GitFlow then
 	git_flow_feature_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..git_flow_feature_finish_parser,
-		"publish",
-		"track",
-		"diff",
-		"rebase"..clink.arg.new_parser():set_flags("-i"),
-		"checkout",
-		"pull",
+		"finish"..clink.arg.new_parser():set_arguments(featureBranchList):set_flags("-F", "-r", "-k", "-D", "-S"),
+		"publish"..clink.arg.new_parser():set_arguments(featureBranchList),
+		"track"..clink.arg.new_parser():set_arguments(featureBranchList),
+		"diff"..clink.arg.new_parser():set_arguments(featureBranchList),
+		"rebase"..clink.arg.new_parser():set_arguments(featureBranchList):set_flags("-i"),
+		"checkout"..clink.arg.new_parser():set_arguments(featureBranchList),
+		"pull"..clink.arg.new_parser():set_arguments({getRemoteList}),
 		"help"
 	})
 	---------------------
@@ -1567,9 +1547,9 @@ if GitFlow then
 	git_flow_release_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
-		"publish",
-		"track",
+		"finish"..clink.arg.new_parser():set_arguments(releaseBranchList):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"publish"..clink.arg.new_parser():set_arguments(releaseBranchList),
+		"track"..clink.arg.new_parser():set_arguments(releaseBranchList),
 		"help"
 	})
 	---------------------
@@ -1580,7 +1560,7 @@ if GitFlow then
 	git_flow_hotfix_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"finish"..clink.arg.new_parser():set_arguments({getHotfixBranchList()}):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
 		"help"
 	})
 	---------------------
