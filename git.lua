@@ -13,7 +13,7 @@ Legit = false
 git_daily = false
 
 
-local function getRemoteList(token){
+local function getRemoteList(token)
 	local remotes = {}
 	local handle = io.popen("git remote 2>nul")
 	for line in handle:lines() do
@@ -22,28 +22,20 @@ local function getRemoteList(token){
         end
 	end
 	return remotes
-}
-
-local function getBranchList(token){
+end
+local function getBranchList(token)
 	local branchs = {}
 	local handle = io.popen("git branch 2>nul")
 	for line in handle:lines() do
-		local m = line:match("%* (.+)$")
-		if m then
-			if string.match(line, token) then
-				table.insert(branchs, line)
-			end
-		else
-			if string.match(line, token) then
-				table.insert(branchs, line)
+		local branch = string.match(line, "[^%s]+$")
+		if branch then
+			if string.match(branch, token) then
+				table.insert(branchs, branch)
 			end
 		end
 	end
 	return branchs
-}
-
-
-
+end
 
 --------------------------------------------------------
 -- git init
@@ -145,7 +137,7 @@ git_commit_parser:set_flags(
 -- git push
 --------------------------------------------------------
 local git_push_parser = clink.arg.new_parser()
-git_push_parser:set_arguments({"strip", "whitespace", "verbatim", "default"})
+git_push_parser:set_arguments({getRemoteList})
 git_push_parser:set_flags(
 	"--all",
 	"--prune",
@@ -226,7 +218,8 @@ git_pull_parser:set_flags(git_fetch_flags, git_merge_flags)
 --------------------------------------------------------
 local git_branch_parser = clink.arg.new_parser()
 git_branch_parser:set_flags(
-	"--delete", "-d",
+	"--delete"..clink.arg.new_parser():set_arguments({getBranchList}),
+	"-d"..clink.arg.new_parser():set_arguments({getBranchList}),
 	"-D",
 	"--create-reflog", "-l",
 	"--force", "-f",
@@ -501,6 +494,7 @@ git_status_parser:set_flags(
 -- git checkout
 --------------------------------------------------------
 local git_checkout_parser = clink.arg.new_parser()
+git_checkout_parser:set_arguments({getBranchList})
 git_checkout_parser:set_flags(
 	"--quiet", "-q",
 	"--force", "-f",
