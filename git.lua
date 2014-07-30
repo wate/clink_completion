@@ -4,7 +4,6 @@ promptFilterDetailStash = false
 GitFlow = true
 HubFlow = false
 Legit = false
-git_daily = false
 local function getRemoteList(token)
 	local remotes = {}
 	local handle = io.popen("git remote 2>nul")
@@ -1283,9 +1282,6 @@ if GitFlow then
 	local function getHotfixBranchList(token)
 		return getFlowBranchList(gitFlowBranchPrefix.hotfix, token)
 	end
-	local featureBranchList = getFeatureBranchList()
-	local releaseBranchList = getReleaseBranchList()
-	local hotfixBranchList = getHotfixBranchList()
 	local git_flow_init_parser = clink.arg.new_parser()
 	git_flow_init_parser:set_flags("-d", "-f")
 	local git_flow_feature_parser = clink.arg.new_parser()
@@ -1293,12 +1289,12 @@ if GitFlow then
 	git_flow_feature_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_arguments(featureBranchList):set_flags("-F", "-r", "-k", "-D", "-S"),
-		"publish"..clink.arg.new_parser():set_arguments(featureBranchList),
-		"track"..clink.arg.new_parser():set_arguments(featureBranchList),
-		"diff"..clink.arg.new_parser():set_arguments(featureBranchList),
-		"rebase"..clink.arg.new_parser():set_arguments(featureBranchList):set_flags("-i"),
-		"checkout"..clink.arg.new_parser():set_arguments(featureBranchList),
+		"finish"..clink.arg.new_parser():set_arguments({getFeatureBranchList}):set_flags("-F", "-r", "-k", "-D", "-S"),
+		"publish"..clink.arg.new_parser():set_arguments({getFeatureBranchList}),
+		"track"..clink.arg.new_parser():set_arguments({getFeatureBranchList}),
+		"diff"..clink.arg.new_parser():set_arguments({getFeatureBranchList}),
+		"rebase"..clink.arg.new_parser():set_arguments({getFeatureBranchList}):set_flags("-i"),
+		"checkout"..clink.arg.new_parser():set_arguments({getFeatureBranchList}),
 		"pull"..clink.arg.new_parser():set_arguments({getRemoteList}),
 		"help"
 	})
@@ -1307,9 +1303,9 @@ if GitFlow then
 	git_flow_release_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_arguments(releaseBranchList):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
-		"publish"..clink.arg.new_parser():set_arguments(releaseBranchList),
-		"track"..clink.arg.new_parser():set_arguments(releaseBranchList),
+		"finish"..clink.arg.new_parser():set_arguments({getReleaseBranchList}):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"publish"..clink.arg.new_parser():set_arguments({getReleaseBranchList}),
+		"track"..clink.arg.new_parser():set_arguments({getReleaseBranchList}),
 		"help"
 	})
 	local git_flow_hotfix_parser = clink.arg.new_parser()
@@ -1317,7 +1313,7 @@ if GitFlow then
 	git_flow_hotfix_parser:set_arguments({
 		"list"..clink.arg.new_parser():set_flags("-v"),
 		"start"..clink.arg.new_parser():set_flags("-F"),
-		"finish"..clink.arg.new_parser():set_arguments({getHotfixBranchList()}):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
+		"finish"..clink.arg.new_parser():set_arguments({getHotfixBranchList}):set_flags("-F", "-s", "-u", "-m", "-p", "-k", "-n"),
 		"help"
 	})
 	local git_flow_support_parser = clink.arg.new_parser()
@@ -1409,23 +1405,6 @@ if HubFlow then
 		})
 	})
 	clink.arg.register_parser("git", git_hf_parser)
-end
-if git_daily then
-	local git_daily_parser = clink.arg.new_parser()
-	git_daily_parser:set_arguments({
-		"daily"..clink.arg.new_parser():set_arguments({
-			"init",
-			"config",
-			"push",
-			"pull",
-			"release"..clink.arg.new_parser():set_arguments({"open", "list", "sync", "close"}),
-			"hotfix"..clink.arg.new_parser():set_arguments({"open", "list", "sync", "close"}),
-			"version",
-			"help",
-			"init",
-		})
-	})
-	clink.arg.register_parser("git", git_daily_parser)
 end
 if Legit then
 	local git_legit_parser = clink.arg.new_parser()
