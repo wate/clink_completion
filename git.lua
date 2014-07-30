@@ -538,7 +538,7 @@ git_checkout_parser:set_flags(
 -- git remote
 --------------------------------------------------------
 local git_remote_parser = clink.arg.new_parser()
-git_checkout_parser:set_flags("-v", "--verbose")
+git_remote_parser:set_flags("-v", "--verbose")
 git_remote_parser:set_arguments({
 	"add"..clink.arg.new_parser():set_flags("-t", "-m", "-f", "--tags", "--no-tags", "--mirror"),
 	"rename",
