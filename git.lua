@@ -1759,62 +1759,95 @@ end
 -- Command Prompt Filter
 --------------------------------------------------------
 if promptFilter then
+
+	local function is_git_repo()
+		for line in io.popen("git rev-parse --is-inside-work-tree 2>nul"):lines() do
+			if string.find(line, "true") then
+				return true
+			else
+				return false
+			end
+		end
+	end
+	local function is_git_dir()
+		for line in io.popen("git rev-parse --is-inside-git-dir 2>nul"):lines() do
+			if string.find(line, "true") then
+				return true
+			else
+				return false
+			end
+		end
+	end
+	local function isUncommittedChanges()
+		--[[ git diff --quiet --ignore-submodules --cached ]]
+	end
+	local function isUnstagedChanges()
+		--[[ git diff-files --quiet --ignore-submodules -- ]]
+	end
+	local function isUntrackedFiles()
+		--[[ git ls-files --others --exclude-standard ]]
+	end
+	local function isStashedFiles()
+		--[[ git rev-parse --verify refs/stash 2>nul ]]
+	end
 	local function git_prompt_filter()
 		local c = tonumber(clink.get_setting_int("prompt_colour"))
 		local gitInfo = ''
-		local currenBranck = getCurrentBranch()
-		if currenBranck then
-			if c < 0 then
-				gitInfo = "["..currenBranck.."]"
-			else
-				gitInfo = "\x1b[33m".."["..currenBranck.."]"
-			end
-		end
-		if gitInfo ~= '' then
-			local uc = ''
-			local us = ''
-			local ut = ''
-			local st = ''
-			if promptFilterDetail then
-				for line in io.popen("git status -s"):lines() do
-					--Check for uncommitted changes in the index
-					if string.find(line, "^[AMD]") then
-						uc='+'
-					elseif string.find(line, "^ [AMD]") then
-						--Check for unstaged changes
-						us='!'
-					else
-						--Check for untracked files
-						ut='?'
-					end
-					if uc ~= '' and us ~= '' and ut ~= '' then
-						break
-					end
+		if is_git_repo() and not is_git_dir() then
+			local currenBranck = getCurrentBranch()
+			if currenBranck then
+				if c < 0 then
+					gitInfo = "["..currenBranck.."]"
+				else
+					gitInfo = "\x1b[33m".."["..currenBranck.."]"
 				end
-				if promptFilterDetailStash then
-					--Check for stashed files
-					local handle = io.popen("git rev-parse --verify refs/stash 2>nul")
-					for line in handle:lines() do
-						local m = line:match("(.+)")
-						if m then
-							st='$'
+			end
+			if gitInfo ~= '' then
+				local uc = ''
+				local us = ''
+				local ut = ''
+				local st = ''
+				if promptFilterDetail then
+					for line in io.popen("git status -s"):lines() do
+						--Check for uncommitted changes in the index
+						if string.find(line, "^[AMD]") then
+							uc='+'
+						elseif string.find(line, "^ [AMD]") then
+							--Check for unstaged changes
+							us='!'
+						else
+							--Check for untracked files
+							ut='?'
+						end
+						if uc ~= '' and us ~= '' and ut ~= '' then
 							break
 						end
 					end
-					handle:close()
+					if promptFilterDetailStash then
+						--Check for stashed files
+						local handle = io.popen("git rev-parse --verify refs/stash 2>nul")
+						for line in handle:lines() do
+							local m = line:match("(.+)")
+							if m then
+								st='$'
+								break
+							end
+						end
+						handle:close()
+					end
+					if uc ~= '' or us ~= '' or ut ~= '' or st ~= '' then
+						gitInfo = gitInfo..'\x1b[32m['..uc..us..ut..st..']'
+					end
 				end
-				if uc ~= '' or us ~= '' or ut ~= '' or st ~= '' then
-					gitInfo = gitInfo..'\x1b[32m['..uc..us..ut..st..']'
+				if c < 0 then
+					clink.prompt.value = gitInfo..clink.prompt.value
+				else
+					clink.prompt.value = gitInfo.."\x1b[34m"..clink.prompt.value.."\x1b[39m"
 				end
 			end
-			if c < 0 then
-				clink.prompt.value = gitInfo..clink.prompt.value
-			else
-				clink.prompt.value = gitInfo.."\x1b[34m"..clink.prompt.value.."\x1b[39m"
-			end
-		end
 
-		return false
+			return false
+		end
 	end
 	clink.prompt.register_filter(git_prompt_filter, 50)
 end
