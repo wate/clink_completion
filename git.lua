@@ -1374,6 +1374,7 @@ git_parser:set_flags(
 	"--literal-pathspecs"
 )
 git_parser:set_arguments({
+	"apply",
 	"add"..git_add_parser,
 	"am"..git_am_parser,
 	"archive"..git_archive_parser,
@@ -1455,7 +1456,7 @@ if GitFlow then
 		if line then
 			for k, v in string.gmatch(line, "gitflow.prefix.(%w+)%s+([^%s]*)") do
 				gitFlowBranchPrefix[k] = v
-			end	
+			end
 		end
 	end
 	handle:close()
@@ -1494,7 +1495,7 @@ if GitFlow then
 			if token then
 				regexp = regexp..token
 			end
-			for _, branchName in pairs(branchList) do 
+			for _, branchName in pairs(branchList) do
 				local tmp = string.match(branchName, regexp)
 				if tmp then
 					table.insert(flowBranches, string.sub(branchName, i))
